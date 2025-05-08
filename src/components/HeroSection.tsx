@@ -50,7 +50,7 @@ const HeroSection = () => {
       <div className="max-w-4xl mx-auto px-6 text-center">
         <h1 
           ref={headingRef}
-          className="text-5xl md:text-7xl font-bold font-poppins mb-3 transition-all duration-700 opacity-0 -translate-y-8"
+          className="text-5xl md:text-7xl font-bold font-montserrat mb-3 tracking-tighter transition-all duration-700 opacity-0 -translate-y-8"
         >
           <span className="gradient-text">Arijit Roy</span>
         </h1>
