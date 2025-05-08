@@ -23,22 +23,22 @@ const ParallaxBackground = () => {
   
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden">
-      {/* Main gradient background */}
-      <div className="absolute inset-0 bg-portfolio-dark bg-gradient-to-br from-portfolio-dark via-portfolio-dark-deeper to-portfolio-dark-lighter opacity-80"></div>
+      {/* Main gradient background - Made darker */}
+      <div className="absolute inset-0 bg-black bg-gradient-to-br from-black via-portfolio-dark-deeper to-portfolio-dark opacity-90"></div>
       
       {/* Animated grid elements */}
       <div ref={backgroundRef} className="absolute inset-0">
         {/* Purple circle blur */}
-        <div className="absolute top-[20%] left-[20%] w-64 h-64 rounded-full bg-portfolio-purple/20 blur-[100px]"></div>
+        <div className="absolute top-[20%] left-[20%] w-64 h-64 rounded-full bg-portfolio-purple/15 blur-[100px]"></div>
         
         {/* Blue circle blur */}
-        <div className="absolute top-[60%] right-[20%] w-80 h-80 rounded-full bg-portfolio-blue/20 blur-[100px]"></div>
+        <div className="absolute top-[60%] right-[20%] w-80 h-80 rounded-full bg-portfolio-blue/15 blur-[100px]"></div>
         
         {/* Neon pink smaller blur */}
-        <div className="absolute bottom-[30%] left-[30%] w-40 h-40 rounded-full bg-portfolio-neon-pink/20 blur-[80px]"></div>
+        <div className="absolute bottom-[30%] left-[30%] w-40 h-40 rounded-full bg-portfolio-neon-pink/15 blur-[80px]"></div>
         
         {/* Grid lines - horizontal */}
-        <div className="absolute inset-0 opacity-[0.03]">
+        <div className="absolute inset-0 opacity-[0.02]">
           {Array.from({ length: 10 }).map((_, index) => (
             <div 
               key={`h-${index}`}
@@ -49,7 +49,7 @@ const ParallaxBackground = () => {
         </div>
         
         {/* Grid lines - vertical */}
-        <div className="absolute inset-0 opacity-[0.03]">
+        <div className="absolute inset-0 opacity-[0.02]">
           {Array.from({ length: 10 }).map((_, index) => (
             <div 
               key={`v-${index}`}

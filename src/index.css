@@ -7,13 +7,13 @@
 
 @layer base {
   :root {
-    --background: 230 19% 14%;
+    --background: 230 19% 9%;
     --foreground: 0 0% 98%;
 
-    --card: 230 19% 14%;
+    --card: 230 19% 10%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 230 19% 14%;
+    --popover: 230 19% 10%;
     --popover-foreground: 0 0% 98%;
 
     --primary: 259 80% 75%;
@@ -48,7 +48,7 @@
   }
 
   body {
-    @apply bg-gradient-to-br from-portfolio-dark to-portfolio-dark-deeper text-foreground font-sans antialiased;
+    @apply bg-gradient-to-br from-black to-portfolio-dark-deeper text-foreground font-sans antialiased;
   }
 }
 
