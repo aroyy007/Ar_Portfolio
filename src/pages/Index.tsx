@@ -5,10 +5,7 @@ import HeroSection from "../components/HeroSection";
 import WorkExperience from "../components/WorkExperience";
 import Projects from "../components/Projects";
 import Accomplishments from "../components/Accomplishments";
-import Teaching from "../components/Teaching";
-import Publications from "../components/Publications";
 import Skills from "../components/Skills";
-import Blog from "../components/Blog";
 import Contact from "../components/Contact";
 import ParallaxBackground from "../components/ParallaxBackground";
 
@@ -34,10 +31,7 @@ const Index = () => {
         <WorkExperience />
         <Projects />
         <Accomplishments />
-        <Teaching />
-        <Publications />
         <Skills />
-        <Blog />
         <Contact />
       </main>
     </div>

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
@@ -7,10 +6,7 @@ const navItems = [
   { id: "experience", label: "Experience" },
   { id: "projects", label: "Projects" },
   { id: "accomplishments", label: "Accomplishments" },
-  { id: "teaching", label: "Teaching" },
-  { id: "publications", label: "Publications" },
   { id: "skills", label: "Skills" },
-  { id: "blog", label: "Blog" },
   { id: "contact", label: "Contact" },
 ];
 
