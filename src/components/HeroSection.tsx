@@ -56,7 +56,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section id="hero" className="min-h-screen flex flex-col justify-center pt-20">
+    <section id="hero" className="min-h-screen flex flex-col justify-center">
       <div className="max-w-6xl mx-auto px-6 w-full">
         <div className="flex flex-col md:flex-row items-center justify-between gap-12">
           {/* Left side - Text content */}

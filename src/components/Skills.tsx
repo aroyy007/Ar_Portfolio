@@ -102,10 +102,10 @@ const Skills = () => {
   }, []);
 
   return (
-    <section id="skills" className="section-container">
-      <div ref={sectionRef} className="opacity-0 translate-y-8 transition-all duration-700">
+    <section id="skills" className="section-container py-16">
+      <div ref={sectionRef} className="opacity-0 translate-y-8 transition-all duration-700 mb-8">
         <h2 className="section-heading">Technical Skills</h2>
-        <p className="text-lg text-gray-300 max-w-2xl mb-12">
+        <p className="text-lg text-gray-300 max-w-2xl mb-8">
           The technologies and tools I work with to bring ideas to life.
         </p>
       </div>

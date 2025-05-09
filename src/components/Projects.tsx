@@ -77,9 +77,9 @@ const Projects = () => {
   }, []);
 
   return (
-    <section id="projects" className="section-container">
-      <div ref={sectionRef} className="opacity-0 translate-y-8 transition-all duration-700">
-        <h2 className="section-heading">Projects</h2>
+    <section id="projects" className="section-container py-16">
+      <div ref={sectionRef} className="opacity-0 translate-y-8 transition-all duration-700 mb-8">
+        <h2 className="section-heading mb-6">Projects</h2>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

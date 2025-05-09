@@ -74,8 +74,8 @@ const WorkExperience = () => {
   }, []);
 
   return (
-    <section id="experience" className="section-container">
-      <div ref={sectionRef} className="opacity-0 translate-y-8 transition-all duration-700">
+    <section id="experience" className="section-container py-16">
+      <div ref={sectionRef} className="opacity-0 translate-y-8 transition-all duration-700 mb-8">
         <h2 className="section-heading">Work Experience</h2>
       </div>
 
@@ -89,7 +89,7 @@ const WorkExperience = () => {
             <div
               key={exp.id}
               ref={(el) => (timelineItems.current[index] = el)}
-              className={`flex flex-col md:flex-row md:items-center mb-16 opacity-0 translate-y-8 transition-all duration-700 ${
+              className={`flex flex-col md:flex-row md:items-center mb-12 opacity-0 translate-y-8 transition-all duration-700 ${
                 index % 2 === 0 ? 'md:flex-row-reverse' : ''
               }`}
               style={{ transitionDelay: `${index * 150}ms` }}
