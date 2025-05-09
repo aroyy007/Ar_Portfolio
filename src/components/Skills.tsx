@@ -104,33 +104,33 @@ const Skills = () => {
   }, []);
 
   return (
-    <section id="skills" className="section-container pt-8">
-      <div ref={sectionRef} className="opacity-0 translate-y-8 transition-all duration-700 mb-8">
+    <section id="skills" className="section-container">
+      <div ref={sectionRef} className="opacity-0 translate-y-8 transition-all duration-700 mb-6 xs:mb-8">
         <h2 className="section-heading">Technical Skills</h2>
-        <p className="text-lg text-gray-300 max-w-2xl mb-8">
+        <p className="text-base xs:text-lg text-gray-300 max-w-2xl mb-6 xs:mb-8">
           The technologies and tools I work with to bring ideas to life.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+      <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-4 xs:gap-5 md:gap-6 lg:gap-8">
         {skillCategories.map((category, index) => (
           <div
             key={index}
             ref={(el) => (categoryRefs.current[index] = el)}
-            className="glass rounded-lg p-5 sm:p-6 opacity-0 translate-y-8 transition-all duration-700"
+            className="glass rounded-lg p-4 xs:p-5 sm:p-6 opacity-0 translate-y-8 transition-all duration-700"
             style={{ transitionDelay: `${index * 150}ms` }}
           >
-            <h3 className="text-xl font-semibold text-portfolio-purple-light mb-4">
+            <h3 className="text-lg xs:text-xl font-semibold text-portfolio-purple-light mb-3 xs:mb-4">
               {category.name}
             </h3>
-            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+            <div className="grid grid-cols-2 gap-2 xs:gap-3 sm:gap-4">
               {category.skills.map((skill, skillIndex) => (
                 <div
                   key={skillIndex}
-                  className="flex items-center p-2 bg-portfolio-dark-deeper/50 rounded-lg transition-all duration-300 hover:bg-portfolio-dark-deeper hover:neon-shadow"
+                  className="flex items-center p-1.5 xs:p-2 bg-portfolio-dark-deeper/50 rounded-lg transition-all duration-300 hover:bg-portfolio-dark-deeper hover:neon-shadow"
                 >
-                  <div className="text-xl sm:text-2xl mr-2 sm:mr-3 animate-float">{skill.icon}</div>
-                  <span className="text-sm sm:text-base text-gray-200">{skill.name}</span>
+                  <div className="text-lg xs:text-xl sm:text-2xl mr-2 sm:mr-3 animate-float">{skill.icon}</div>
+                  <span className="text-xs xs:text-sm sm:text-base text-gray-200">{skill.name}</span>
                 </div>
               ))}
             </div>

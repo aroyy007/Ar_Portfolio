@@ -77,12 +77,12 @@ const Projects = () => {
   }, []);
 
   return (
-    <section id="projects" className="section-container pt-8">
-      <div ref={sectionRef} className="opacity-0 translate-y-8 transition-all duration-700 mb-10">
-        <h2 className="section-heading mb-8">Projects</h2>
+    <section id="projects" className="section-container">
+      <div ref={sectionRef} className="opacity-0 translate-y-8 transition-all duration-700 mb-8">
+        <h2 className="section-heading mb-6">Projects</h2>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+      <div className="responsive-grid-3">
         {projects.map((project, index) => (
           <div
             key={project.id}
@@ -90,23 +90,23 @@ const Projects = () => {
             className="glass rounded-xl overflow-hidden hover-card opacity-0 translate-y-12 transition-all duration-700"
             style={{ transitionDelay: `${index * 150}ms` }}
           >
-            <div className="h-40 sm:h-48 overflow-hidden">
+            <div className="h-36 xs:h-40 sm:h-44 md:h-48 overflow-hidden">
               <img
                 src={project.image}
                 alt={project.title}
                 className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
               />
             </div>
-            <div className="p-5 sm:p-6">
-              <h3 className="text-xl font-semibold text-white mb-2">{project.title}</h3>
-              <p className="text-gray-300 mb-4">{project.description}</p>
-              <div className="mb-5">
-                <h4 className="text-sm text-portfolio-purple-light mb-2">Technologies:</h4>
-                <div className="flex flex-wrap gap-2">
+            <div className="p-4 xs:p-5 sm:p-6">
+              <h3 className="text-lg xs:text-xl font-semibold text-white mb-2">{project.title}</h3>
+              <p className="text-sm xs:text-base text-gray-300 mb-3 xs:mb-4">{project.description}</p>
+              <div className="mb-4 xs:mb-5">
+                <h4 className="text-xs xs:text-sm text-portfolio-purple-light mb-2">Technologies:</h4>
+                <div className="flex flex-wrap gap-1 xs:gap-2">
                   {project.tech.map((tech, i) => (
                     <span
                       key={i}
-                      className="text-xs bg-portfolio-dark-lighter px-3 py-1 rounded-full text-gray-300"
+                      className="text-xs bg-portfolio-dark-lighter px-2 py-1 rounded-full text-gray-300"
                     >
                       {tech}
                     </span>
@@ -117,12 +117,12 @@ const Projects = () => {
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-portfolio-purple-light flex items-center hover:text-portfolio-purple transition-colors"
+                className="text-portfolio-purple-light flex items-center hover:text-portfolio-purple transition-colors text-sm xs:text-base"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
+                  width="16"
+                  height="16"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"

@@ -1,6 +1,7 @@
 
 import { useEffect, useRef } from "react";
 import { Avatar } from "./ui/avatar";
+import { useIsMobile } from "../hooks/use-mobile";
 
 const HeroSection = () => {
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -8,6 +9,7 @@ const HeroSection = () => {
   const bioRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     // Animation sequence for hero elements
@@ -56,9 +58,9 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section id="hero" className="min-h-screen flex flex-col justify-center">
-      <div className="max-w-6xl mx-auto px-6 w-full">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-12">
+    <section id="hero" className="min-h-[100svh] flex flex-col justify-center pb-12">
+      <div className="max-w-6xl mx-auto px-4 xs:px-5 sm:px-6 md:px-8 w-full">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 xs:gap-8 md:gap-12">
           {/* Left side - Text content */}
           <div className="w-full md:w-1/2 text-left">
             <div className="text-portfolio-neon-blue font-medium mb-3 transition-all duration-700 opacity-0 -translate-y-8" ref={subheadingRef}>
@@ -67,19 +69,19 @@ const HeroSection = () => {
             
             <h1 
               ref={headingRef}
-              className="text-5xl md:text-7xl font-bold font-montserrat mb-4 tracking-tighter transition-all duration-700 opacity-0 -translate-y-8"
+              className="text-4xl xs:text-5xl md:text-6xl lg:text-7xl font-bold font-montserrat mb-3 xs:mb-4 tracking-tighter transition-all duration-700 opacity-0 -translate-y-8"
             >
               <span className="gradient-text">Arijit Roy</span>
               <span className="text-white">.</span>
             </h1>
 
-            <h2 className="text-3xl md:text-5xl font-bold text-gray-400 mb-6 transition-all duration-700 opacity-0 -translate-y-8" ref={bioRef}>
+            <h2 className="text-2xl xs:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-400 mb-4 xs:mb-6 transition-all duration-700 opacity-0 -translate-y-8" ref={bioRef}>
               Full Stack Developer
             </h2>
 
             <p 
               ref={bioRef}
-              className="text-lg md:text-xl text-gray-300 max-w-2xl mb-10 transition-all duration-700 opacity-0 -translate-y-8"
+              className="text-base xs:text-lg md:text-xl text-gray-300 max-w-2xl mb-6 xs:mb-8 md:mb-10 transition-all duration-700 opacity-0 -translate-y-8"
             >
               I build real-world, impactful tech — from disaster response platforms to AI-powered monitoring systems.
             </p>
@@ -107,12 +109,12 @@ const HeroSection = () => {
           {/* Right side - Image with animation */}
           <div 
             ref={imageRef} 
-            className="w-full md:w-1/2 flex justify-center items-center transition-all duration-700 opacity-0 scale-95"
+            className="w-full xs:w-3/4 sm:w-2/3 md:w-1/2 flex justify-center items-center mt-8 md:mt-0 transition-all duration-700 opacity-0 scale-95"
           >
             <div className="relative">
               <div className="profile-image-container">
                 <div className="profile-image-border"></div>
-                <div className="profile-image rounded-full overflow-hidden h-72 w-72 md:h-96 md:w-96">
+                <div className="profile-image rounded-full overflow-hidden h-56 w-56 xs:h-64 xs:w-64 sm:h-72 sm:w-72 md:h-80 md:w-80 lg:h-96 lg:w-96">
                   {/* Placeholder image - you can replace this with your actual image */}
                   <img 
                     src="/placeholder.svg" 
@@ -127,7 +129,7 @@ const HeroSection = () => {
       </div>
       
       {/* Scroll indicator */}
-      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 animate-bounce">
         <svg 
           xmlns="http://www.w3.org/2000/svg" 
           fill="none" 

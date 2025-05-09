@@ -19,6 +19,15 @@ const Index = () => {
     if (metaDescription) {
       metaDescription.setAttribute('content', 'Arijit Roy - Full Stack Developer, IoT & AI Enthusiast, ICPC Regionalist');
     }
+
+    // Add viewport meta tag to ensure proper mobile display
+    let viewport = document.querySelector('meta[name="viewport"]');
+    if (!viewport) {
+      viewport = document.createElement('meta');
+      viewport.setAttribute('name', 'viewport');
+      document.head.appendChild(viewport);
+    }
+    viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
   }, []);
 
   return (

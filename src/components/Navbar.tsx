@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { useIsMobile } from "../hooks/use-mobile";
 
 const navItems = [
   { id: "hero", label: "Home" },
@@ -15,6 +16,7 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState("hero");
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,12 +60,12 @@ const Navbar = () => {
   return (
     <header className={cn(
       "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-      isScrolled ? "py-3 bg-portfolio-dark-deeper/90 backdrop-blur-lg shadow-lg" : "py-5"
+      isScrolled ? "py-2 xs:py-3 bg-portfolio-dark-deeper/90 backdrop-blur-lg shadow-lg" : "py-3 xs:py-4 sm:py-5"
     )}>
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 xs:px-5 sm:px-6 flex items-center justify-between">
         <a 
           href="#hero" 
-          className="text-2xl font-bold font-poppins text-white"
+          className="text-xl xs:text-2xl font-bold font-poppins text-white"
           onClick={(e) => {
             e.preventDefault();
             scrollToSection("hero");
@@ -74,13 +76,13 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:block">
-          <ul className="flex space-x-8">
+          <ul className="flex space-x-4 lg:space-x-8">
             {navItems.map((item) => (
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
                   className={cn(
-                    "nav-link py-2",
+                    "nav-link py-2 text-sm lg:text-base",
                     activeSection === item.id ? "active" : ""
                   )}
                   onClick={(e) => {
@@ -99,6 +101,7 @@ const Navbar = () => {
         <button
           className="md:hidden text-white"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle mobile menu"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -124,13 +127,13 @@ const Navbar = () => {
       {/* Mobile Navigation */}
       {isMobileMenuOpen && (
         <div className="md:hidden glass animate-slide-down">
-          <ul className="flex flex-col px-6 py-4">
+          <ul className="flex flex-col px-4 xs:px-6 py-3 xs:py-4">
             {navItems.map((item) => (
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
                   className={cn(
-                    "nav-link block py-3 border-b border-white/10",
+                    "nav-link block py-2 xs:py-3 border-b border-white/10",
                     activeSection === item.id ? "text-portfolio-purple-light" : ""
                   )}
                   onClick={(e) => {
