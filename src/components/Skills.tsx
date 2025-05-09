@@ -1,5 +1,6 @@
 
 import { useRef, useEffect } from "react";
+import { useIsMobile } from "../hooks/use-mobile";
 
 interface SkillCategory {
   name: string;
@@ -65,6 +66,7 @@ const skillCategories: SkillCategory[] = [
 const Skills = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const categoryRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -102,7 +104,7 @@ const Skills = () => {
   }, []);
 
   return (
-    <section id="skills" className="section-container py-16">
+    <section id="skills" className="section-container pt-8">
       <div ref={sectionRef} className="opacity-0 translate-y-8 transition-all duration-700 mb-8">
         <h2 className="section-heading">Technical Skills</h2>
         <p className="text-lg text-gray-300 max-w-2xl mb-8">
@@ -110,25 +112,25 @@ const Skills = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
         {skillCategories.map((category, index) => (
           <div
             key={index}
             ref={(el) => (categoryRefs.current[index] = el)}
-            className="glass rounded-lg p-6 opacity-0 translate-y-8 transition-all duration-700"
+            className="glass rounded-lg p-5 sm:p-6 opacity-0 translate-y-8 transition-all duration-700"
             style={{ transitionDelay: `${index * 150}ms` }}
           >
             <h3 className="text-xl font-semibold text-portfolio-purple-light mb-4">
               {category.name}
             </h3>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
               {category.skills.map((skill, skillIndex) => (
                 <div
                   key={skillIndex}
                   className="flex items-center p-2 bg-portfolio-dark-deeper/50 rounded-lg transition-all duration-300 hover:bg-portfolio-dark-deeper hover:neon-shadow"
                 >
-                  <div className="text-2xl mr-3 animate-float">{skill.icon}</div>
-                  <span className="text-gray-200">{skill.name}</span>
+                  <div className="text-xl sm:text-2xl mr-2 sm:mr-3 animate-float">{skill.icon}</div>
+                  <span className="text-sm sm:text-base text-gray-200">{skill.name}</span>
                 </div>
               ))}
             </div>

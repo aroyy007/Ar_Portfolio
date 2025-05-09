@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
@@ -57,7 +58,7 @@ const Navbar = () => {
   return (
     <header className={cn(
       "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-      isScrolled ? "py-2 bg-portfolio-dark-deeper/90 backdrop-blur-lg shadow-lg" : "py-4"
+      isScrolled ? "py-3 bg-portfolio-dark-deeper/90 backdrop-blur-lg shadow-lg" : "py-5"
     )}>
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         <a 

@@ -74,14 +74,14 @@ const WorkExperience = () => {
   }, []);
 
   return (
-    <section id="experience" className="section-container py-16">
+    <section id="experience" className="section-container pb-8">
       <div ref={sectionRef} className="opacity-0 translate-y-8 transition-all duration-700 mb-8">
         <h2 className="section-heading">Work Experience</h2>
       </div>
 
       <div className="relative">
         {/* Vertical timeline line */}
-        <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 top-0 bottom-0 w-px bg-portfolio-purple-light/30"></div>
+        <div className="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 top-0 bottom-0 w-px bg-portfolio-purple-light/30"></div>
 
         {/* Timeline items */}
         <div className="relative z-10">
@@ -89,7 +89,7 @@ const WorkExperience = () => {
             <div
               key={exp.id}
               ref={(el) => (timelineItems.current[index] = el)}
-              className={`flex flex-col md:flex-row md:items-center mb-12 opacity-0 translate-y-8 transition-all duration-700 ${
+              className={`flex flex-col md:flex-row md:items-center mb-10 opacity-0 translate-y-8 transition-all duration-700 ${
                 index % 2 === 0 ? 'md:flex-row-reverse' : ''
               }`}
               style={{ transitionDelay: `${index * 150}ms` }}
@@ -97,7 +97,7 @@ const WorkExperience = () => {
               onMouseLeave={() => setActiveItem(null)}
             >
               {/* Timeline node */}
-              <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 w-5 h-5 rounded-full bg-portfolio-purple-light border-4 border-portfolio-dark-deeper transition-all duration-300">
+              <div className="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 w-5 h-5 rounded-full bg-portfolio-purple-light border-4 border-portfolio-dark-deeper transition-all duration-300">
                 {/* Glow effect on hover */}
                 <div
                   className={`absolute inset-0 rounded-full transition-opacity duration-300 ${
@@ -111,12 +111,12 @@ const WorkExperience = () => {
 
               {/* Content */}
               <div
-                className={`md:w-[45%] pl-8 md:pl-0 ${
+                className={`md:w-[45%] pl-12 md:pl-0 ${
                   index % 2 === 0 ? 'md:pl-8' : 'md:pr-8'
                 }`}
               >
                 <div
-                  className={`glass p-6 rounded-lg hover-card ${
+                  className={`glass p-5 sm:p-6 rounded-lg hover-card ${
                     activeItem === exp.id ? 'neon-shadow' : ''
                   }`}
                 >

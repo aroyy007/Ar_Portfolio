@@ -77,12 +77,12 @@ const Projects = () => {
   }, []);
 
   return (
-    <section id="projects" className="section-container py-16">
-      <div ref={sectionRef} className="opacity-0 translate-y-8 transition-all duration-700 mb-8">
-        <h2 className="section-heading mb-6">Projects</h2>
+    <section id="projects" className="section-container pt-8">
+      <div ref={sectionRef} className="opacity-0 translate-y-8 transition-all duration-700 mb-10">
+        <h2 className="section-heading mb-8">Projects</h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
         {projects.map((project, index) => (
           <div
             key={project.id}
@@ -90,14 +90,14 @@ const Projects = () => {
             className="glass rounded-xl overflow-hidden hover-card opacity-0 translate-y-12 transition-all duration-700"
             style={{ transitionDelay: `${index * 150}ms` }}
           >
-            <div className="h-48 overflow-hidden">
+            <div className="h-40 sm:h-48 overflow-hidden">
               <img
                 src={project.image}
                 alt={project.title}
                 className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
               />
             </div>
-            <div className="p-6">
+            <div className="p-5 sm:p-6">
               <h3 className="text-xl font-semibold text-white mb-2">{project.title}</h3>
               <p className="text-gray-300 mb-4">{project.description}</p>
               <div className="mb-5">
