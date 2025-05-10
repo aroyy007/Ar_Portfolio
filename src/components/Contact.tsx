@@ -104,7 +104,7 @@ const Contact = () => {
           </a>
 
           <a
-            href="https://linkedin.com/in/arijitroy"
+            href="https://www.linkedin.com/in/arijit-roy-3004ar/"
             target="_blank"
             rel="noopener noreferrer"
             className="relative flex items-center justify-center w-64 p-4 bg-portfolio-dark-deeper text-white rounded-lg transition-all duration-300"

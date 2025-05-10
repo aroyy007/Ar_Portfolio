@@ -1,7 +1,7 @@
-
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "../hooks/use-mobile";
+import logo from "./logo.png"
 
 const navItems = [
   { id: "hero", label: "Home" },
@@ -58,20 +58,24 @@ const Navbar = () => {
   };
 
   return (
-    <header className={cn(
-      "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-      isScrolled ? "py-2 xs:py-3 bg-portfolio-dark-deeper/90 backdrop-blur-lg shadow-lg" : "py-3 xs:py-4 sm:py-5"
-    )}>
+    <header
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        isScrolled
+          ? "p-0 bg-portfolio-dark-deeper/90 backdrop-blur-lg shadow-lg" // Removed top and bottom padding for scrolled state
+          : "p-0" // Removed top and bottom padding for default state
+      )}
+    >
       <div className="max-w-7xl mx-auto px-4 xs:px-5 sm:px-6 flex items-center justify-between">
-        <a 
-          href="#hero" 
+        <a
+          href="#hero"
           className="text-xl xs:text-2xl font-bold font-poppins text-white"
           onClick={(e) => {
             e.preventDefault();
             scrollToSection("hero");
           }}
         >
-          <span className="gradient-text">AR</span>
+          <img src={logo} alt="Logo" className="h-14 xs:h-14 ml-6 mt-1" />
         </a>
 
         {/* Desktop Navigation */}

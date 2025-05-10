@@ -1,4 +1,3 @@
-
 import { useState, useRef, useEffect } from "react";
 
 interface Project {
@@ -79,7 +78,7 @@ const Projects = () => {
   return (
     <section id="projects" className="section-container">
       <div ref={sectionRef} className="opacity-0 translate-y-8 transition-all duration-700 mb-8">
-        <h2 className="section-heading mb-6">Projects</h2>
+        <h2 className="section-heading mb-8 xs:mb-10 sm:mb-12">Projects</h2>
       </div>
 
       <div className="responsive-grid-3">

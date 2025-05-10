@@ -1,7 +1,8 @@
-
 import { useEffect, useRef } from "react";
 import { Avatar } from "./ui/avatar";
 import { useIsMobile } from "../hooks/use-mobile";
+import bgimage from "./bgphoto.png";
+import cv from "./Arijit_Roy_CV.pdf";
 
 const HeroSection = () => {
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -90,18 +91,26 @@ const HeroSection = () => {
               ref={ctaRef}
               className="transition-all duration-700 opacity-0 -translate-y-8"
             >
-              <a 
+              {/* <a 
                 href="#projects" 
                 className="neon-button inline-block"
                 onClick={(e) => {
                   e.preventDefault();
                   const projectsSection = document.getElementById("projects");
                   if (projectsSection) {
-                    projectsSection.scrollIntoView({behavior: "smooth"});
+                    projectsSection.scrollIntoView({ behavior: "smooth" });
                   }
                 }}
               >
                 Explore My Work
+              </a> */}
+              <br />
+              <a 
+                href={cv} 
+                className="neon-button inline-block mt-4 "
+                download
+              >
+                Download My CV
               </a>
             </div>
           </div>
@@ -109,15 +118,14 @@ const HeroSection = () => {
           {/* Right side - Image with animation */}
           <div 
             ref={imageRef} 
-            className="w-full xs:w-3/4 sm:w-2/3 md:w-1/2 flex justify-center items-center mt-8 md:mt-0 transition-all duration-700 opacity-0 scale-95"
+            className="w-full xs:w-3/4 sm:w-2/3 md:w-1/2 flex justify-center items-center mt-8 md:mt-4 transition-all duration-700 opacity-0 scale-95"
           >
             <div className="relative">
               <div className="profile-image-container">
                 <div className="profile-image-border"></div>
                 <div className="profile-image rounded-full overflow-hidden h-56 w-56 xs:h-64 xs:w-64 sm:h-72 sm:w-72 md:h-80 md:w-80 lg:h-96 lg:w-96">
-                  {/* Placeholder image - you can replace this with your actual image */}
                   <img 
-                    src="/placeholder.svg" 
+                    src={bgimage} 
                     alt="Arijit Roy" 
                     className="w-full h-full object-cover"
                   />
