@@ -1,4 +1,3 @@
-
 import { useRef, useEffect } from "react";
 import { useIsMobile } from "../hooks/use-mobile";
 
@@ -31,10 +30,10 @@ const awards: AwardItem[] = [
 ];
 
 const codingPlatforms = [
-  { name: "Codeforces", icon: "⭐" },
-  { name: "LeetCode", icon: "⚡" },
-  { name: "HackerRank", icon: "🔥" },
-  { name: "CodeChef", icon: "🚀" },
+  { name: "Codeforces", img: "/codeforce.png" },
+  { name: "LeetCode", img: "/leetcode.png" },
+  { name: "HackerRank", img: "/hackerrank.png" },
+  { name: "CodeChef", img: "/codechef.png" },
 ];
 
 const Accomplishments = () => {
@@ -120,7 +119,12 @@ const Accomplishments = () => {
               key={index}
               className="p-3 xs:p-4 bg-portfolio-dark rounded-lg text-center transform transition-all duration-300 hover:scale-105 hover:neon-shadow"
             >
-              <div className="text-2xl xs:text-3xl mb-2">{platform.icon}</div>
+              <img
+                src={platform.img}
+                alt={platform.name}
+                className="mx-auto mb-2 w-12 h-12 xs:w-16 xs:h-16 object-contain"
+                loading="lazy"
+              />
               <div className="text-base xs:text-lg font-medium text-white">{platform.name}</div>
             </div>
           ))}

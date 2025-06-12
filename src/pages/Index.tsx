@@ -37,7 +37,7 @@ const Index = () => {
       
       <main>
         <HeroSection />
-        <WorkExperience />
+        {/* <WorkExperience /> */}
         <Projects />
         <Accomplishments />
         <Skills />

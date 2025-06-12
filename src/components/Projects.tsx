@@ -15,7 +15,7 @@ const projects: Project[] = [
     title: "Air Quality Monitoring System",
     description: "Full-stack IoT + AI solution for real-time AQI tracking and prediction",
     tech: ["Arduino", "Node.js", "React", "MongoDB", "HuggingFace"],
-    githubUrl: "https://github.com/aroyy007",
+    githubUrl: "https://github.com/aroyy007/Air_Quality_Monitoring_System",
     image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d"
   },
   {

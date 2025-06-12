@@ -1,73 +1,143 @@
-# Welcome to your Lovable project
 
-## Project info
+# 🌐 Arijit Roy – Portfolio Website
 
-**URL**: https://lovable.dev/projects/69cee5d7-4ef6-4fc7-9e5c-3fc83933d4d3
+A modern, responsive, and accessible portfolio website built with **React**, **TypeScript**, **Tailwind CSS**, and **Vite**, showcasing the skills, achievements, and projects of **Arijit Roy** — a Full Stack Developer, ICPC Regionalist, and IoT/AI Enthusiast.
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## 🚀 Key Features
 
-**Use Lovable**
+* 🎯 **Hero Section**: Animated introduction with a profile image and downloadable CV.
+* 💻 **Projects**: Real-world applications with tech stacks, live demos, and GitHub links.
+* 🏆 **Accomplishments**: Hackathons, awards, and competitive programming achievements.
+* 🧠 **Skills**: Categorized technical skills displayed with responsive grid and icons.
+* 🧑‍💼 **Work Experience**: Timeline of roles and responsibilities.
+* 📚 **Publications & Problem Setting**: Research contributions and contest problem setting.
+* 👨‍🏫 **Teaching & Mentorship**: Workshops and knowledge-sharing initiatives.
+* 📬 **Contact Section**: Social links and direct contact information.
+* 📱 **Fully Responsive**: Optimized for all screen sizes.
+* ✨ **Modern UI**: Glassmorphism, neon accents, smooth animations.
+* ♿ **Accessibility**: Semantic HTML and full keyboard navigation support.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/69cee5d7-4ef6-4fc7-9e5c-3fc83933d4d3) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🛠 Tech Stack
 
-**Use your preferred IDE**
+* **Frontend**: [React](https://react.dev/), [TypeScript](https://www.typescriptlang.org/)
+* **Styling**: [Tailwind CSS](https://tailwindcss.com/), [PostCSS](https://postcss.org/)
+* **Build Tool**: [Vite](https://vitejs.dev/)
+* **Icons**: [Lucide Icons](https://lucide.dev/)
+* **Animations**: Custom CSS, Intersection Observer API
+* **State Management**: React Hooks
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+---
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 🗂 Project Structure
 
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+aroyy007-arijit-roy-luminous-folio/
+├── public/
+│   └── robots.txt
+├── src/
+│   ├── components/
+│   │   ├── HeroSection.tsx
+│   │   ├── Projects.tsx
+│   │   ├── Skills.tsx
+│   │   ├── Accomplishments.tsx
+│   │   ├── WorkExperience.tsx
+│   │   ├── Publications.tsx
+│   │   ├── Teaching.tsx
+│   │   ├── Contact.tsx
+│   │   └── ui/ (Reusable UI components)
+│   ├── pages/
+│   │   ├── Index.tsx
+│   │   └── NotFound.tsx
+│   ├── hooks/
+│   ├── lib/
+│   └── main.tsx
+├── index.html
+├── tailwind.config.ts
+├── vite.config.ts
+├── package.json
+└── tsconfig.json
 ```
 
-**Edit a file directly in GitHub**
+---
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## ⚙️ Getting Started
 
-**Use GitHub Codespaces**
+### Prerequisites
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+* [Node.js](https://nodejs.org/) (v16 or higher)
+* [npm](https://www.npmjs.com/) or [bun](https://bun.sh/)
 
-## What technologies are used for this project?
+### Setup Instructions
 
-This project is built with:
+1. **Clone the repository**:
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+   ```bash
+   git clone https://github.com/aroyy007/Ar_Portfolio.git
+   cd Ar_Portfolio
+   ```
 
-## How can I deploy this project?
+2. **Install dependencies**:
 
-Simply open [Lovable](https://lovable.dev/projects/69cee5d7-4ef6-4fc7-9e5c-3fc83933d4d3) and click on Share -> Publish.
+   ```bash
+   npm install
+   ```
 
-## Can I connect a custom domain to my Lovable project?
+3. **Start development server**:
 
-Yes, you can!
+   ```bash
+   npm run dev
+   ```
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+4. **Open in browser**:
+   Visit `http://localhost:5173` or the port shown in your terminal.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+---
+
+## 📝 Customization
+
+* **Profile Image**: Replace `src/components/bgphoto.png` with your own image.
+* **CV File**: Replace `src/components/Arijit_Roy_CV.pdf` with your current CV.
+* **Content**: Edit files inside `src/components/` to update your personal details, projects, etc.
+* **Branding**: Customize styles in `tailwind.config.ts` and `src/index.css`.
+
+---
+
+## 🖼️ Screenshots (Add Here)
+
+Include UI screenshots or a demo GIF to visually showcase your website.
+
+---
+
+## 📄 License
+
+This project is open-source and available under the [MIT License](https://opensource.org/licenses/MIT).
+
+---
+
+## 🙏 Acknowledgements
+
+* React
+* Tailwind CSS
+* Vite
+* Lucide Icons
+* All contributors and open-source libraries
+
+---
+
+## 📬 Contact
+
+**Arijit Roy**
+🔗 [LinkedIn](https://www.linkedin.com/in/arijit-roy-3004ar)
+💻 [GitHub](https://github.com/aroyy007)
+
+
+---
+
+**Designed and developed with ❤️ by Arijit Roy**
+
+---
+

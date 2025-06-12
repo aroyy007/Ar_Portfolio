@@ -5,7 +5,7 @@ import logo from "./logo.png"
 
 const navItems = [
   { id: "hero", label: "Home" },
-  { id: "experience", label: "Experience" },
+  // { id: "experience", label: "Experience" },
   { id: "projects", label: "Projects" },
   { id: "accomplishments", label: "Accomplishments" },
   { id: "skills", label: "Skills" },
