@@ -3,12 +3,12 @@ import * as React from "react";
 
 // Define breakpoints matching tailwind config
 const BREAKPOINTS = {
-  xs: 375,  // Medium phones
-  sm: 640,  // Default Tailwind sm
-  md: 768,  // Tablets 
-  lg: 1024, // Small laptops
-  xl: 1280, // Default Tailwind xl
-  "2xl": 1536, // Default Tailwind 2xl
+  xs: 320,   // Small phones
+  sm: 375,   // Medium phones  
+  md: 425,   // Large phones
+  lg: 768,   // Tablets
+  xl: 1024,  // Small laptops
+  "2xl": 1440, // Large desktops
   "3xl": 1920, // Full HD screens
 };
 
@@ -18,10 +18,10 @@ export function useIsMobile() {
   const [isMobile, setIsMobile] = React.useState<boolean | undefined>(undefined);
 
   React.useEffect(() => {
-    const mql = window.matchMedia(`(max-width: ${BREAKPOINTS.md - 1}px)`);
+    const mql = window.matchMedia(`(max-width: ${BREAKPOINTS.lg - 1}px)`);
     
     const handleResize = () => {
-      setIsMobile(window.innerWidth < BREAKPOINTS.md);
+      setIsMobile(window.innerWidth < BREAKPOINTS.lg);
     };
     
     handleResize(); // Set initial value
@@ -64,4 +64,39 @@ export function useBreakpoint(breakpoint: Breakpoint) {
   }, [breakpoint]);
 
   return matches;
+}
+
+// Additional utility hooks for common breakpoint checks
+export function useIsTablet() {
+  const isTablet = useBreakpoint('lg');
+  const isDesktop = useBreakpoint('xl');
+  return isTablet && !isDesktop;
+}
+
+export function useIsDesktop() {
+  return useBreakpoint('xl');
+}
+
+export function useIsSmallPhone() {
+  const [isSmallPhone, setIsSmallPhone] = React.useState<boolean | undefined>(undefined);
+
+  React.useEffect(() => {
+    const mql = window.matchMedia(`(max-width: ${BREAKPOINTS.sm - 1}px)`);
+    
+    const handleResize = () => {
+      setIsSmallPhone(window.innerWidth < BREAKPOINTS.sm);
+    };
+    
+    handleResize();
+    
+    mql.addEventListener("change", handleResize);
+    window.addEventListener("resize", handleResize);
+    
+    return () => {
+      mql.removeEventListener("change", handleResize);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  return !!isSmallPhone;
 }

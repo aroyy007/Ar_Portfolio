@@ -13,19 +13,19 @@ export default {
 	theme: {
 		container: {
 			center: true,
-			padding: '2rem',
+			padding: '1rem',
 			screens: {
 				'2xl': '1400px'
 			}
 		},
 		screens: {
-			'xs': '375px',
-			'sm': '640px',
-			'md': '768px',
-			'lg': '1024px',
-			'xl': '1280px',
-			'2xl': '1536px',
-			'3xl': '1920px',
+			'xs': '320px',   // Small phones
+			'sm': '375px',   // Medium phones  
+			'md': '425px',   // Large phones
+			'lg': '768px',   // Tablets
+			'xl': '1024px',  // Small laptops
+			'2xl': '1440px', // Large desktops
+			'3xl': '1920px', // Full HD screens
 		},
 		extend: {
 			colors: {
@@ -142,4 +142,3 @@ export default {
 	},
 	plugins: [require("tailwindcss-animate")],
 } satisfies Config;
-

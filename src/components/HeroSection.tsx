@@ -1,3 +1,4 @@
+
 import { useEffect, useRef } from "react";
 import { Avatar } from "./ui/avatar";
 import { useIsMobile } from "../hooks/use-mobile";
@@ -59,30 +60,30 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section id="hero" className="min-h-[100svh] flex flex-col justify-center pb-12">
-      <div className="max-w-6xl mx-auto px-4 xs:px-5 sm:px-6 md:px-8 w-full">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 xs:gap-8 md:gap-12">
+    <section id="hero" className="min-h-[100svh] flex flex-col justify-center pb-6 sm:pb-8 lg:pb-12">
+      <div className="max-w-6xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 w-full">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-6 sm:gap-8 lg:gap-12">
           {/* Left side - Text content */}
-          <div className="w-full md:w-1/2 text-left">
-            <div className="text-portfolio-neon-blue font-medium mb-3 transition-all duration-700 opacity-0 -translate-y-8" ref={subheadingRef}>
+          <div className="w-full lg:w-1/2 text-center lg:text-left order-2 lg:order-1">
+            <div className="text-portfolio-neon-blue font-medium mb-2 sm:mb-3 transition-all duration-700 opacity-0 -translate-y-8 text-sm sm:text-base" ref={subheadingRef}>
               <p>Hi, my name is</p>
             </div>
             
             <h1 
               ref={headingRef}
-              className="text-4xl xs:text-5xl md:text-6xl lg:text-7xl font-bold font-montserrat mb-3 xs:mb-4 tracking-tighter transition-all duration-700 opacity-0 -translate-y-8"
+              className="responsive-text-4xl font-bold font-montserrat mb-2 sm:mb-3 lg:mb-4 tracking-tighter transition-all duration-700 opacity-0 -translate-y-8"
             >
               <span className="gradient-text">Arijit Roy</span>
               <span className="text-white">.</span>
             </h1>
 
-            <h2 className="text-2xl xs:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-400 mb-4 xs:mb-6 transition-all duration-700 opacity-0 -translate-y-8" ref={bioRef}>
+            <h2 className="responsive-text-2xl font-bold text-gray-400 mb-3 sm:mb-4 lg:mb-6 transition-all duration-700 opacity-0 -translate-y-8" ref={bioRef}>
               Full Stack Developer
             </h2>
 
             <p 
               ref={bioRef}
-              className="text-base xs:text-lg md:text-xl text-gray-300 max-w-2xl mb-6 xs:mb-8 md:mb-10 transition-all duration-700 opacity-0 -translate-y-8"
+              className="text-sm sm:text-base lg:text-lg xl:text-xl text-gray-300 max-w-2xl mx-auto lg:mx-0 mb-4 sm:mb-6 lg:mb-8 xl:mb-10 transition-all duration-700 opacity-0 -translate-y-8 leading-relaxed"
             >
               I build real-world, impactful tech — from disaster response platforms to AI-powered monitoring systems.
             </p>
@@ -91,23 +92,9 @@ const HeroSection = () => {
               ref={ctaRef}
               className="transition-all duration-700 opacity-0 -translate-y-8"
             >
-              {/* <a 
-                href="#projects" 
-                className="neon-button inline-block"
-                onClick={(e) => {
-                  e.preventDefault();
-                  const projectsSection = document.getElementById("projects");
-                  if (projectsSection) {
-                    projectsSection.scrollIntoView({ behavior: "smooth" });
-                  }
-                }}
-              >
-                Explore My Work
-              </a> */}
-              <br />
               <a 
                 href={cv} 
-                className="neon-button inline-block mt-4 "
+                className="neon-button inline-block"
                 download
               >
                 Download My CV
@@ -118,12 +105,12 @@ const HeroSection = () => {
           {/* Right side - Image with animation */}
           <div 
             ref={imageRef} 
-            className="w-full xs:w-3/4 sm:w-2/3 md:w-1/2 flex justify-center items-center mt-8 md:mt-4 transition-all duration-700 opacity-0 scale-95"
+            className="w-full lg:w-1/2 flex justify-center items-center order-1 lg:order-2 transition-all duration-700 opacity-0 scale-95"
           >
             <div className="relative">
               <div className="profile-image-container">
                 <div className="profile-image-border"></div>
-                <div className="profile-image rounded-full overflow-hidden h-56 w-56 xs:h-64 xs:w-64 sm:h-72 sm:w-72 md:h-80 md:w-80 lg:h-96 lg:w-96">
+                <div className="profile-image rounded-full overflow-hidden h-40 w-40 sm:h-48 sm:w-48 md:h-56 md:w-56 lg:h-64 lg:w-64 xl:h-72 xl:w-72 2xl:h-96 2xl:w-96">
                   <img 
                     src={bgimage} 
                     alt="Arijit Roy" 
@@ -137,14 +124,14 @@ const HeroSection = () => {
       </div>
       
       {/* Scroll indicator */}
-      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 animate-bounce">
+      <div className="absolute bottom-4 sm:bottom-6 left-1/2 transform -translate-x-1/2 animate-bounce">
         <svg 
           xmlns="http://www.w3.org/2000/svg" 
           fill="none" 
           viewBox="0 0 24 24" 
           strokeWidth={1.5} 
           stroke="currentColor" 
-          className="w-6 h-6 text-portfolio-purple-light"
+          className="w-5 h-5 sm:w-6 sm:h-6 text-portfolio-purple-light"
         >
           <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" />
         </svg>
