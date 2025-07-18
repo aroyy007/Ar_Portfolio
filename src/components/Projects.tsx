@@ -1,5 +1,7 @@
-
 import { useState, useRef, useEffect } from "react";
+import AcademiaConnect from './AcademiaConnect.png'
+import FloodGuard from './FloodGuard.png';
+import AirQuality from './AirQuality.png'
 
 interface Project {
   id: number;
@@ -17,7 +19,7 @@ const projects: Project[] = [
     description: "Full-stack IoT + AI solution for real-time AQI tracking and prediction",
     tech: ["Arduino", "Node.js", "React", "MongoDB", "HuggingFace"],
     githubUrl: "https://github.com/aroyy007/Air_Quality_Monitoring_System",
-    image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d"
+    image: AirQuality,
   },
   {
     id: 2,
@@ -25,7 +27,7 @@ const projects: Project[] = [
     description: "Central academic portal with role-based access for notes and assignments",
     tech: ["React", "Node.js", "Express", "MongoDB"],
     githubUrl: "https://github.com/aroyy007/AcademiaConnect",
-    image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b"
+    image: AcademiaConnect,
   },
   {
     id: 3,
@@ -33,7 +35,7 @@ const projects: Project[] = [
     description: "Emergency communication platform for flood relief",
     tech: ["React", "Firebase", "Google Maps API"],
     githubUrl: "https://github.com/aroyy007/FloodGuard_Aid_Network",
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158"
+    image: FloodGuard,
   }
 ];
 

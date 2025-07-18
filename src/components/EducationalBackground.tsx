@@ -1,5 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { useIsMobile } from "../hooks/use-mobile";
+import edu from './EDU.jpeg'
+import school from './school.png'
+import college from './College.jpg'
 
 interface EducationItem {
     id: number;
@@ -15,21 +18,21 @@ const educationHistory: EducationItem[] = [
         date: "September 2022 - September 2026",
         institution: "East Delta University",
         degree: "Bachelor of Science in Computer Science and Engineering",
-        logo: "/placeholder.svg" // Replace with actual logo
+        logo: edu,
     },
     {
         id: 2,
         date: "2019 - 2021",
         institution: "Govt Haji Mohammad Mohsin College",
         degree: "Higher Secondary",
-        logo: "/placeholder.svg" // Replace with actual logo
+        logo: college, 
     },
     {
         id: 3,
         date: "2019",
         institution: "St. Placid's School & College",
         degree: "Secondary School",
-        logo: "/placeholder.svg" // Replace with actual logo
+        logo: school,
     }
 ];
 
@@ -130,7 +133,7 @@ const EducationalBackground = () => {
                                                 <img
                                                     src={edu.logo}
                                                     alt={`${edu.institution} logo`}
-                                                    className="w-8 h-8 xs:w-10 xs:h-10 object-contain filter brightness-0 invert opacity-80"
+                                                    className="w-8 h-8 xs:w-10 xs:h-10 object-contain"
                                                 />
                                             </div>
                                         </div>

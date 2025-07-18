@@ -1,4 +1,3 @@
-
 import { useRef, useEffect } from "react";
 import { useIsMobile } from "../hooks/use-mobile";
 
@@ -9,16 +8,16 @@ interface Skill {
 }
 
 const skills: Skill[] = [
-  { name: "JavaScript", icon: "⚡", category: "Programming" },
-  { name: "Python", icon: "🐍", category: "Programming" },
-  { name: "C++", icon: "🔥", category: "Programming" },
-  { name: "HTML/CSS", icon: "🌐", category: "Programming" },
-  { name: "React", icon: "⚛️", category: "Frontend" },
-  { name: "TailwindCSS", icon: "🌊", category: "Frontend" },
-  { name: "Redux", icon: "🔄", category: "Frontend" },
-  { name: "Node.js", icon: "📦", category: "Backend" },
-  { name: "Express", icon: "🚂", category: "Backend" },
-  { name: "MongoDB", icon: "🍃", category: "Backend" },
+  { name: "JavaScript", icon: "/js.png", category: "Programming" },
+  { name: "Python", icon: "/python.png", category: "Programming" },
+  { name: "C++", icon: "/c++.png", category: "Programming" },
+  { name: "HTML/CSS", icon: "/html.png", category: "Programming" },
+  { name: "React", icon: "/react.png", category: "Frontend" },
+  { name: "TailwindCSS", icon: "/tailwind.png", category: "Frontend" },
+  { name: "Redux", icon: "/redux.png", category: "Frontend" },
+  { name: "Node.js", icon: "/nodejs.png", category: "Backend" },
+  { name: "Express", icon: "/expressjs.jpg", category: "Backend" },
+  { name: "MongoDB", icon: "/mongodb.png", category: "Backend" },
   { name: "Firebase", icon: "🔥", category: "Backend" },
   { name: "Arduino", icon: "🤖", category: "IoT" },
   { name: "Raspberry Pi", icon: "🥧", category: "IoT" },
@@ -82,8 +81,17 @@ const Skills = () => {
               }}
             >
               <div className="flex flex-col items-center text-center">
-                <div className="text-2xl sm:text-3xl md:text-4xl mb-2 sm:mb-3 group-hover:scale-110 transition-transform duration-300">
-                  {skill.icon}
+                <div className="mb-2 sm:mb-3 group-hover:scale-110 transition-transform duration-300">
+                  {skill.icon.startsWith("/") ? (
+                    <img
+                      src={skill.icon}
+                      alt={skill.name}
+                      className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 object-contain"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <span className="text-2xl sm:text-3xl md:text-4xl">{skill.icon}</span>
+                  )}
                 </div>
                 <h3 className="text-sm sm:text-base font-semibold text-white mb-1">
                   {skill.name}
