@@ -1,22 +1,59 @@
-
 import { useState, useRef, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { Mail, Github, Linkedin, Twitter } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
+
+const contactSchema = z.object({
+  name: z.string().trim().min(1, { message: "Name is required" }).max(100, { message: "Name must be less than 100 characters" }),
+  email: z.string().trim().email({ message: "Invalid email address" }).max(255, { message: "Email must be less than 255 characters" }),
+  message: z.string().trim().min(1, { message: "Message is required" }).max(1000, { message: "Message must be less than 1000 characters" })
+});
+
+type ContactFormData = z.infer<typeof contactSchema>;
 
 const Contact = () => {
-  const [isHoveringEmail, setIsHoveringEmail] = useState(false);
-  const [isHoveringLinkedIn, setIsHoveringLinkedIn] = useState(false);
-  const [isHoveringGithub, setIsHoveringGithub] = useState(false);
-  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [terminalLines, setTerminalLines] = useState<string[]>([]);
   const sectionRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const socialRef = useRef<HTMLDivElement>(null);
+  const { toast } = useToast();
+
+  const form = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      message: ""
+    }
+  });
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate-slide-up", "opacity-100");
-            entry.target.classList.remove("opacity-0", "translate-y-8");
+          if (entry.isIntersecting && terminalLines.length === 0) {
+            const lines = [
+              "> Initializing contact protocol...",
+              "> Loading communication channels...",
+              "> System ready. Awaiting your message..."
+            ];
+            
+            lines.forEach((line, index) => {
+              setTimeout(() => {
+                setTerminalLines(prev => [...prev, line]);
+              }, index * 600);
+            });
           }
         });
       },
@@ -27,164 +64,216 @@ const Contact = () => {
       observer.observe(sectionRef.current);
     }
 
-    if (contentRef.current) {
-      observer.observe(contentRef.current);
-    }
-
-    if (socialRef.current) {
-      observer.observe(socialRef.current);
-    }
-
     return () => {
       if (sectionRef.current) {
         observer.unobserve(sectionRef.current);
       }
-      if (contentRef.current) {
-        observer.unobserve(contentRef.current);
-      }
-      if (socialRef.current) {
-        observer.unobserve(socialRef.current);
-      }
     };
-  }, []);
+  }, [terminalLines.length]);
+
+  const onSubmit = async (data: ContactFormData) => {
+    setIsSubmitting(true);
+    
+    // Simulate sending email (in production, you'd integrate with an email service)
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    setTerminalLines(prev => [
+      ...prev,
+      `> Processing message from ${data.name}...`,
+      `> Email: ${data.email}`,
+      `> Message sent successfully! ✓`
+    ]);
+    
+    toast({
+      title: "Message Sent!",
+      description: "Thank you for reaching out. I'll get back to you soon!",
+    });
+    
+    form.reset();
+    setIsSubmitting(false);
+  };
 
   return (
     <section id="contact" className="section-container pb-16 sm:pb-20 lg:pb-32">
-      <div ref={sectionRef} className="opacity-0 translate-y-8 transition-all duration-700">
-        <h2 className="section-heading text-center">Contact</h2>
-      </div>
-
-      <div 
-        ref={contentRef} 
-        className="glass rounded-lg card-padding max-w-4xl mx-auto text-center opacity-0 translate-y-8 transition-all duration-700"
-      >
-        <h3 className="responsive-text-2xl font-semibold font-poppins text-white mb-3 sm:mb-4">
-          Want to collaborate?
-        </h3>
-        <p className="text-sm sm:text-base lg:text-lg text-gray-300 mb-6 sm:mb-8 leading-relaxed max-w-2xl mx-auto">
-          I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
-        </p>
-
-        <div 
-          ref={socialRef}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mt-6 sm:mt-8 opacity-0 translate-y-8 transition-all duration-700"
-          style={{ transitionDelay: "200ms" }}
-        >
-          <a
-            href="mailto:contact@arijitroy.me"
-            className="contact-button relative group"
-            onMouseEnter={() => setIsHoveringEmail(true)}
-            onMouseLeave={() => setIsHoveringEmail(false)}
-          >
-            <div
-              className={`absolute inset-0 rounded-lg transition-opacity duration-300 ${
-                isHoveringEmail ? "opacity-100" : "opacity-0"
-              }`}
-              style={{
-                background: "linear-gradient(45deg, rgba(155,135,245,0.4) 0%, rgba(14,165,233,0.4) 100%)",
-                boxShadow: "0 0 15px 2px rgba(155, 135, 245, 0.5)",
-              }}
-            />
-            <div className="relative flex items-center justify-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="mr-2 sm:mr-3 group-hover:scale-110 transition-transform duration-300"
-              >
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                <polyline points="22,6 12,13 2,6"></polyline>
-              </svg>
-              Email
+      <div ref={sectionRef} className="opacity-0 translate-y-8 transition-all duration-700 mb-6 sm:mb-8">
+                <h2 className="section-heading">Educational Background</h2>
             </div>
-          </a>
 
-          <a
-            href="https://www.linkedin.com/in/arijit-roy-3004ar/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="contact-button relative group"
-            onMouseEnter={() => setIsHoveringLinkedIn(true)}
-            onMouseLeave={() => setIsHoveringLinkedIn(false)}
-          >
-            <div
-              className={`absolute inset-0 rounded-lg transition-opacity duration-300 ${
-                isHoveringLinkedIn ? "opacity-100" : "opacity-0"
-              }`}
-              style={{
-                background: "linear-gradient(45deg, rgba(155,135,245,0.4) 0%, rgba(14,165,233,0.4) 100%)",
-                boxShadow: "0 0 15px 2px rgba(155, 135, 245, 0.5)",
-              }}
-            />
-            <div className="relative flex items-center justify-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="mr-2 sm:mr-3 group-hover:scale-110 transition-transform duration-300"
-              >
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                <rect x="2" y="9" width="4" height="12"></rect>
-                <circle cx="4" cy="4" r="2"></circle>
-              </svg>
-              LinkedIn
+      <div className="max-w-3xl mx-auto">
+        {/* Terminal Window */}
+        <div className="bg-[#0a0e1a] rounded-lg overflow-hidden border border-primary/20 shadow-2xl">
+          {/* Terminal Header */}
+          <div className="bg-[#1a1f2e] px-4 py-3 flex items-center justify-between border-b border-primary/20">
+            <div className="flex items-center gap-2">
+              <span className="text-primary/70 text-sm font-mono">❯</span>
+              <span className="text-primary/90 text-sm font-mono">contact.terminal</span>
             </div>
-          </a>
+            <div className="flex gap-2">
+              <div className="w-3 h-3 rounded-full bg-red-500"></div>
+              <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+              <div className="w-3 h-3 rounded-full bg-green-500"></div>
+            </div>
+          </div>
 
-          <a
-            href="https://github.com/aroyy007"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="contact-button relative group"
-            onMouseEnter={() => setIsHoveringGithub(true)}
-            onMouseLeave={() => setIsHoveringGithub(false)}
-          >
-            <div
-              className={`absolute inset-0 rounded-lg transition-opacity duration-300 ${
-                isHoveringGithub ? "opacity-100" : "opacity-0"
-              }`}
-              style={{
-                background: "linear-gradient(45deg, rgba(155,135,245,0.4) 0%, rgba(14,165,233,0.4) 100%)",
-                boxShadow: "0 0 15px 2px rgba(155, 135, 245, 0.5)",
-              }}
-            />
-            <div className="relative flex items-center justify-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="mr-2 sm:mr-3 group-hover:scale-110 transition-transform duration-300"
-              >
-                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-              </svg>
-              GitHub
+          {/* Terminal Content */}
+          <div className="p-6 sm:p-8 min-h-[400px]">
+            {/* Terminal Output */}
+            <div className="font-mono text-sm mb-6">
+              {terminalLines.map((line, index) => (
+                <div
+                  key={index}
+                  className="text-primary animate-pulse mb-2"
+                  style={{
+                    animationDelay: `${index * 200}ms`,
+                    animationDuration: "1s",
+                    animationIterationCount: "1"
+                  }}
+                >
+                  {line}
+                </div>
+              ))}
+              {terminalLines.length >= 3 && (
+                <div className="inline-block w-2 h-4 bg-primary animate-pulse ml-1"></div>
+              )}
             </div>
-          </a>
+
+            {/* Form */}
+            {terminalLines.length >= 3 && (
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 animate-fade-in">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <div className="flex items-start gap-2">
+                          <span className="text-primary font-mono text-sm mt-2">❯</span>
+                          <div className="flex-1">
+                            <FormControl>
+                              <Input
+                                {...field}
+                                placeholder="enter name..."
+                                className="bg-transparent border-0 border-b border-primary/30 rounded-none text-primary font-mono text-sm placeholder:text-primary/40 focus-visible:ring-0 focus-visible:border-primary px-2 py-1"
+                              />
+                            </FormControl>
+                            <FormMessage className="text-red-400 text-xs font-mono mt-1 ml-2" />
+                          </div>
+                        </div>
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <div className="flex items-start gap-2">
+                          <span className="text-primary font-mono text-sm mt-2">❯</span>
+                          <div className="flex-1">
+                            <FormControl>
+                              <Input
+                                {...field}
+                                type="email"
+                                placeholder="enter email..."
+                                className="bg-transparent border-0 border-b border-primary/30 rounded-none text-primary font-mono text-sm placeholder:text-primary/40 focus-visible:ring-0 focus-visible:border-primary px-2 py-1"
+                              />
+                            </FormControl>
+                            <FormMessage className="text-red-400 text-xs font-mono mt-1 ml-2" />
+                          </div>
+                        </div>
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="message"
+                    render={({ field }) => (
+                      <FormItem>
+                        <div className="flex items-start gap-2">
+                          <span className="text-primary font-mono text-sm mt-2">❯</span>
+                          <div className="flex-1">
+                            <FormControl>
+                              <Textarea
+                                {...field}
+                                placeholder="enter message..."
+                                rows={4}
+                                className="bg-transparent border-0 border-b border-primary/30 rounded-none text-primary font-mono text-sm placeholder:text-primary/40 focus-visible:ring-0 focus-visible:border-primary px-2 py-1 resize-none"
+                              />
+                            </FormControl>
+                            <FormMessage className="text-red-400 text-xs font-mono mt-1 ml-2" />
+                          </div>
+                        </div>
+                      </FormItem>
+                    )}
+                  />
+
+                  <div className="flex items-center gap-2 pt-4">
+                    <span className="text-primary font-mono text-sm">❯</span>
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="bg-primary/20 hover:bg-primary/30 text-primary border border-primary/50 font-mono text-sm px-6"
+                    >
+                      {isSubmitting ? "sending..." : "send_message"}
+                    </Button>
+                  </div>
+                </form>
+              </Form>
+            )}
+          </div>
+
+          {/* Social Links Footer */}
+          <div className="bg-[#1a1f2e] px-6 py-4 border-t border-primary/20">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              <span className="text-primary/70 font-mono text-sm">❯ Connect with me:</span>
+              <div className="flex gap-3">
+                <a
+                  href="mailto:contact@arijitroy.me"
+                  className="w-10 h-10 rounded-lg border border-primary/30 flex items-center justify-center text-primary hover:bg-primary/10 hover:border-primary/50 transition-all duration-300"
+                  aria-label="Email"
+                >
+                  <Mail size={18} />
+                </a>
+                <a
+                  href="https://github.com/aroyy007"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-lg border border-primary/30 flex items-center justify-center text-primary hover:bg-primary/10 hover:border-primary/50 transition-all duration-300"
+                  aria-label="GitHub"
+                >
+                  <Github size={18} />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/arijit-roy-3004ar/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-lg border border-primary/30 flex items-center justify-center text-primary hover:bg-primary/10 hover:border-primary/50 transition-all duration-300"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin size={18} />
+                </a>
+                <a
+                  href="https://twitter.com/aroyy007"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-lg border border-primary/30 flex items-center justify-center text-primary hover:bg-primary/10 hover:border-primary/50 transition-all duration-300"
+                  aria-label="Twitter"
+                >
+                  <Twitter size={18} />
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div className="text-center text-gray-400 mt-8 sm:mt-12 lg:mt-16">
-        <p className="text-sm sm:text-base">
-          &copy; {new Date().getFullYear()} Arijit Roy. All rights reserved.
-        </p>
+        {/* Copyright */}
+        <div className="text-center text-gray-400 mt-8 sm:mt-12">
+          <p className="text-sm sm:text-base font-mono">
+            &copy; {new Date().getFullYear()} Arijit Roy. All rights reserved.
+          </p>
+        </div>
       </div>
     </section>
   );
