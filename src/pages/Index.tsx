@@ -1,50 +1,54 @@
-
 import { useEffect } from "react";
 import Navbar from "../components/Navbar";
 import HeroSection from "../components/HeroSection";
-import WorkExperience from "../components/WorkExperience";
+import MarqueeBanner from "../components/MarqueeBanner";
 import EducationalBackground from "../components/EducationalBackground";
-import Projects from "../components/Projects";
-import Accomplishments from "../components/Accomplishments";
 import Skills from "../components/Skills";
+import WorkExperience from "../components/WorkExperience";
+import Accomplishments from "../components/Accomplishments";
+import Projects from "../components/Projects";
 import Contact from "../components/Contact";
-import ParallaxBackground from "../components/ParallaxBackground";
+import Footer from "../components/Footer";
 
 const Index = () => {
   useEffect(() => {
-    // Update the page title
-    document.title = "Arijit Roy | Portfolio";
-    
-    // Update meta description
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute('content', 'Arijit Roy - Full Stack Developer, IoT & AI Enthusiast, ICPC Regionalist');
-    }
+    // Set page title
+    document.title = "ARIJIT ROY | Full Stack Developer";
 
-    // Add viewport meta tag to ensure proper mobile display
-    let viewport = document.querySelector('meta[name="viewport"]');
-    if (!viewport) {
-      viewport = document.createElement('meta');
-      viewport.setAttribute('name', 'viewport');
-      document.head.appendChild(viewport);
-    }
-    viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+    // Smooth scroll for anchor links
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const anchor = target.closest("a[href^='#']");
+      if (anchor) {
+        const href = anchor.getAttribute("href");
+        if (href && href.startsWith("#")) {
+          e.preventDefault();
+          const element = document.getElementById(href.slice(1));
+          if (element) {
+            const offset = 80;
+            const top = element.getBoundingClientRect().top + window.scrollY - offset;
+            window.scrollTo({ top, behavior: "smooth" });
+          }
+        }
+      }
+    };
+
+    document.addEventListener("click", handleAnchorClick);
+    return () => document.removeEventListener("click", handleAnchorClick);
   }, []);
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden">
-      <ParallaxBackground />
+    <div className="min-h-screen">
       <Navbar />
-      
-      <main>
-        <HeroSection />
-        <EducationalBackground />
-        {/* <WorkExperience /> */}
-        <Projects />
-        <Accomplishments />
-        <Skills />
-        <Contact />
-      </main>
+      <HeroSection />
+      <MarqueeBanner />
+      <EducationalBackground />
+      <Skills />
+      {/* <WorkExperience /> */}
+      <Accomplishments />
+      <Projects />
+      <Contact />
+      <Footer />
     </div>
   );
 };

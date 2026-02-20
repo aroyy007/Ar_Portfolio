@@ -1,7 +1,7 @@
-import { useState, useRef, useEffect } from "react";
-import AcademiaConnect from './AcademiaConnect.png'
-import FloodGuard from './FloodGuard.png';
-import AirQuality from './AirQuality.png'
+import { useEffect, useRef } from "react";
+import AcademiaConnect from "./AcademiaConnect.png";
+import FloodGuard from "./FloodGuard.png";
+import AirQuality from "./AirQuality.png";
 
 interface Project {
   id: number;
@@ -10,143 +10,140 @@ interface Project {
   tech: string[];
   githubUrl: string;
   image: string;
+  hoverColor: string;
 }
 
 const projects: Project[] = [
   {
     id: 1,
-    title: "Air Quality Monitoring System",
-    description: "Full-stack IoT + AI solution for real-time AQI tracking and prediction",
+    title: "Air Quality Monitor",
+    description:
+      "Full-stack IoT + AI solution for real-time AQI tracking and prediction using Arduino sensors, Node.js, and HuggingFace ML models.",
     tech: ["Arduino", "Node.js", "React", "MongoDB", "HuggingFace"],
-    githubUrl: "https://github.com/aroyy007/Air_Quality_Monitoring_System",
+    githubUrl: "https://github.com/aroyy007/Air_Quality_Monitoring",
     image: AirQuality,
+    hoverColor: "group-hover:text-neo-red",
   },
   {
     id: 2,
     title: "AcademiaConnect",
-    description: "Central academic portal with role-based access for notes and assignments",
+    description:
+      "A comprehensive academic collaboration platform for students and faculty to share resources, manage courses, and communicate.",
     tech: ["React", "Node.js", "Express", "MongoDB"],
     githubUrl: "https://github.com/aroyy007/AcademiaConnect",
     image: AcademiaConnect,
+    hoverColor: "group-hover:text-neo-blue",
   },
   {
     id: 3,
-    title: "FloodGuard Aid Network",
-    description: "Emergency communication platform for flood relief",
-    tech: ["React", "Firebase", "Google Maps API"],
+    title: "FloodGuard Aid",
+    description:
+      "Emergency response platform for flood-affected areas with real-time mapping, resource coordination, and volunteer management.",
+    tech: ["React", "Firebase", "Google Maps API", "Tailwind"],
     githubUrl: "https://github.com/aroyy007/FloodGuard_Aid_Network",
     image: FloodGuard,
-  }
+    hoverColor: "group-hover:text-neo-pink",
+  },
 ];
 
 const Projects = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('animate-slide-up', 'opacity-100');
-            entry.target.classList.remove('opacity-0', 'translate-y-12');
+            entry.target.classList.add("active");
           }
         });
       },
       { threshold: 0.1 }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+    const reveals = sectionRef.current?.querySelectorAll(".reveal");
+    reveals?.forEach((el) => observer.observe(el));
 
-    projectRefs.current.forEach((item) => {
-      if (item) {
-        observer.observe(item);
-      }
-    });
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-      projectRefs.current.forEach((item) => {
-        if (item) {
-          observer.unobserve(item);
-        }
-      });
-    };
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <section id="projects" className="section-container">
-      <div ref={sectionRef} className="opacity-0 translate-y-8 transition-all duration-700 mb-6 sm:mb-8 lg:mb-10">
-        <h2 className="section-heading">Projects</h2>
-      </div>
+    <section
+      id="projects"
+      ref={sectionRef}
+      className="py-24 bg-neo-yellow border-t-4 border-black px-4 overflow-hidden"
+    >
+      <div className="max-w-7xl mx-auto">
+        {/* Heading */}
+        <h2
+          className="text-5xl md:text-7xl lg:text-9xl font-black mb-16 uppercase tracking-tighter text-white drop-shadow-[4px_4px_0_rgba(0,0,0,1)]"
+          style={{ WebkitTextStroke: "3px black" }}
+        >
+          Selected Works
+        </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
-        {projects.map((project, index) => (
-          <div
-            key={project.id}
-            ref={(el) => (projectRefs.current[index] = el)}
-            className="glass rounded-xl overflow-hidden hover-card opacity-0 translate-y-12 transition-all duration-700"
-            style={{ transitionDelay: `${index * 150}ms` }}
-          >
-            <div className="h-32 sm:h-36 md:h-40 lg:h-44 xl:h-48 overflow-hidden">
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                loading="lazy"
-              />
-            </div>
-            <div className="card-padding">
-              <h3 className="responsive-text-xl font-semibold text-white mb-2 sm:mb-3 line-clamp-2">
-                {project.title}
-              </h3>
-              <p className="text-sm sm:text-base text-gray-300 mb-3 sm:mb-4 leading-relaxed line-clamp-3">
-                {project.description}
-              </p>
-              <div className="mb-4 sm:mb-5">
-                <h4 className="text-xs sm:text-sm text-portfolio-purple-light mb-2 font-medium">
-                  Technologies:
-                </h4>
-                <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                  {project.tech.map((tech, i) => (
-                    <span
-                      key={i}
-                      className="text-xs sm:text-sm bg-portfolio-dark-lighter px-2 sm:px-3 py-1 rounded-full text-gray-300 border border-white/10"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+          {projects.map((project, index) => (
+            <article
+              key={project.id}
+              className={`reveal group bg-white border-4 border-black p-4 shadow-hard ${index % 2 === 1 ? "md:mt-20" : ""
+                }`}
+            >
+              {/* Image */}
+              <div className="bg-black border-2 border-black aspect-video relative overflow-hidden mb-6 group-hover:shadow-none transition-all">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+                />
               </div>
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-portfolio-purple-light flex items-center hover:text-portfolio-purple transition-colors text-sm sm:text-base font-medium touch-target group"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="mr-2 group-hover:scale-110 transition-transform duration-300"
+
+              {/* Content */}
+              <div className="flex justify-between items-start gap-3">
+                <div className="flex-1">
+                  <h3
+                    className={`text-2xl md:text-4xl font-black uppercase mb-2 transition-colors glitch-hover ${project.hoverColor}`}
+                  >
+                    {project.title}
+                  </h3>
+                  <p className="font-mono text-sm mb-4 max-w-xs">
+                    {project.description}
+                  </p>
+                  <div className="flex gap-2 font-mono text-xs font-bold flex-wrap">
+                    {project.tech.map((t) => (
+                      <span key={t} className="neo-tag">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Arrow Link */}
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-12 h-12 border-2 border-black bg-neo-green flex items-center justify-center hover:bg-black hover:text-white transition-all shadow-hard-sm flex-shrink-0"
                 >
-                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                </svg>
-                View on GitHub
-              </a>
-            </div>
-          </div>
-        ))}
+                  <i className="ri-arrow-right-up-line text-2xl"></i>
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        {/* View All Button */}
+        <div className="text-center mt-24">
+          <a
+            href="https://github.com/aroyy007?tab=repositories"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-neo-black text-white px-8 md:px-12 py-4 md:py-5 font-bold font-mono text-lg md:text-xl hover:bg-neo-white hover:text-black border-4 border-black transition-all shadow-hard hover:shadow-none"
+          >
+            VIEW ALL REPOS ON GITHUB
+          </a>
+        </div>
       </div>
     </section>
   );

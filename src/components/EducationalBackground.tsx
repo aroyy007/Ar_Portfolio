@@ -1,9 +1,9 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useIsMobile } from "../hooks/use-mobile";
-import edu from './EDU.jpeg'
-import school from './school.png'
-import college from './College.jpg'
-
+import bgimage from "./bgphoto.png";
+import edu from "./EDU.jpeg";
+import school from "./school.png";
+import college from "./College.jpg";
 
 interface EducationItem {
     id: number;
@@ -18,29 +18,27 @@ const educationHistory: EducationItem[] = [
         id: 1,
         date: "September 2022 - September 2026",
         institution: "East Delta University",
-        degree: "Bachelor of Science in Computer Science and Engineering",
+        degree: "BSc in Computer Science & Engineering",
         logo: edu,
     },
     {
         id: 2,
         date: "2019 - 2021",
         institution: "Govt Haji Mohammad Mohsin College",
-        degree: "Higher Secondary",
+        degree: "Higher Secondary Certificate (HSC)",
         logo: college,
     },
     {
         id: 3,
-        date: "2019",
+        date: "2014 - 2019",
         institution: "St. Placid's School & College",
-        degree: "Secondary School",
+        degree: "Secondary School Certificate (SSC)",
         logo: school,
-    }
+    },
 ];
 
 const EducationalBackground = () => {
-    const [activeItem, setActiveItem] = useState<number | null>(null);
-    const sectionRef = useRef<HTMLDivElement>(null);
-    const timelineItems = useRef<(HTMLDivElement | null)[]>([]);
+    const sectionRef = useRef<HTMLElement>(null);
     const isMobile = useIsMobile();
 
     useEffect(() => {
@@ -48,113 +46,89 @@ const EducationalBackground = () => {
             (entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('animate-slide-up', 'opacity-100');
-                        entry.target.classList.remove('opacity-0', 'translate-y-8');
+                        entry.target.classList.add("active");
                     }
                 });
             },
             { threshold: 0.1 }
         );
 
-        if (sectionRef.current) {
-            observer.observe(sectionRef.current);
-        }
+        const reveals = sectionRef.current?.querySelectorAll(".reveal");
+        reveals?.forEach((el) => observer.observe(el));
 
-        timelineItems.current.forEach((item) => {
-            if (item) {
-                observer.observe(item);
-            }
-        });
-
-        return () => {
-            if (sectionRef.current) {
-                observer.unobserve(sectionRef.current);
-            }
-            timelineItems.current.forEach((item) => {
-                if (item) {
-                    observer.unobserve(item);
-                }
-            });
-        };
+        return () => observer.disconnect();
     }, []);
 
     return (
-        <section id="education" className="section-container">
-            <div ref={sectionRef} className="opacity-0 translate-y-8 transition-all duration-700 mb-6 sm:mb-8">
-                <h2 className="section-heading">Educational Background</h2>
+        <section
+            id="about"
+            ref={sectionRef}
+            className="py-24 px-4 max-w-7xl mx-auto border-x-4 border-black bg-white my-12 shadow-hard-lg"
+        >
+            {/* About Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 mb-16">
+                {/* Photo */}
+                <div className="md:col-span-4 reveal">
+                    <div className="aspect-square bg-gray-200 border-4 border-black relative shadow-hard overflow-hidden group">
+                        <img
+                            src={bgimage}
+                            alt="Arijit Roy"
+                            className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                        />
+                        <span className="absolute top-2 left-2 bg-neo-red text-white px-2 font-mono text-xs border border-black z-10">
+                            AVATAR.JPG
+                        </span>
+                    </div>
+                </div>
+
+                {/* Bio */}
+                <div className="md:col-span-8 flex flex-col justify-center reveal">
+                    <h2 className="text-4xl md:text-6xl font-black uppercase mb-6">Who am I?</h2>
+                    <p className="font-mono text-lg md:text-xl leading-relaxed mb-6">
+                        I am Arijit Roy. A full-stack developer who builds{" "}
+                        <span className="bg-neo-yellow px-1 border border-black">real-world, impactful solutions</span> — from IoT systems
+                        to AI-powered applications.
+                    </p>
+                    <p className="font-mono text-base md:text-lg mb-8 text-gray-600 border-l-4 border-neo-purple pl-4">
+                        &gt; BSc in Computer Science & Engineering @ East Delta University<br />
+                        &gt; ICPC Regionalist 2024 | IoT & AI Enthusiast<br />
+                        &gt; Full Stack: React, Node.js, Python, MongoDB
+                    </p>
+
+                    <div className="flex flex-wrap gap-3">
+                        <div className="bg-neo-black text-white px-4 py-2 font-mono text-sm border-2 border-transparent">
+                            📍 LOCATION: CHITTAGONG, BD
+                        </div>
+                        <div className="bg-neo-green text-black px-4 py-2 font-mono text-sm border-2 border-black font-bold">
+                            🟢 STATUS: AVAILABLE
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div className="relative">
-                {/* Vertical timeline line with glow effect */}
-                <div className="absolute left-4 sm:left-5 md:left-1/2 transform md:-translate-x-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-portfolio-purple-light via-portfolio-purple-light to-transparent"></div>
-                <div className="absolute left-4 sm:left-5 md:left-1/2 transform md:-translate-x-1/2 top-0 bottom-0 w-px bg-portfolio-purple-light/30 blur-sm"></div>
+            {/* Education Cards */}
+            <div className="border-t-4 border-black pt-12">
+                <h3 className="text-3xl md:text-4xl font-black uppercase mb-8 flex items-center gap-3">
+                    <span className="bg-neo-blue text-white px-3 py-1 border-2 border-black text-sm font-mono">EDU</span>
+                    Academic Background
+                </h3>
 
-                {/* Timeline items */}
-                <div className="relative z-10">
-                    {educationHistory.map((edu, index) => (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {educationHistory.map((item) => (
                         <div
-                            key={edu.id}
-                            ref={(el) => (timelineItems.current[index] = el)}
-                            className={`flex flex-col md:flex-row md:items-center mb-8 sm:mb-10 opacity-0 translate-y-8 transition-all duration-700 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''
-                                }`}
-                            style={{ transitionDelay: `${index * 200}ms` }}
-                            onMouseEnter={() => setActiveItem(edu.id)}
-                            onMouseLeave={() => setActiveItem(null)}
+                            key={item.id}
+                            className="reveal bg-white border-4 border-black p-5 shadow-hard hover:shadow-hard-lg hover:-translate-y-1 transition-all duration-300"
                         >
-                            {/* Timeline node with enhanced glow */}
-                            <div className="absolute left-4 sm:left-5 md:left-1/2 transform md:-translate-x-1/2 w-4 sm:w-5 h-4 sm:h-5 rounded-full bg-portfolio-purple-light border-4 border-portfolio-dark-deeper transition-all duration-300 z-20">
-                                {/* Enhanced glow effect on hover */}
-                                <div
-                                    className={`absolute inset-0 rounded-full transition-all duration-300 ${activeItem === edu.id ? 'opacity-100 scale-150' : 'opacity-0 scale-100'
-                                        }`}
-                                    style={{
-                                        boxShadow: '0 0 20px 8px rgba(155, 135, 245, 0.8), 0 0 40px 15px rgba(155, 135, 245, 0.4)',
-                                    }}
-                                ></div>
-                                {/* Pulsing effect */}
-                                <div
-                                    className={`absolute inset-0 rounded-full bg-portfolio-purple-light transition-all duration-1000 ${activeItem === edu.id ? 'animate-ping opacity-20' : 'opacity-0'
-                                        }`}
-                                ></div>
-                            </div>
-
-                            {/* Content */}
-                            <div
-                                className={`md:w-[45%] pl-10 sm:pl-12 md:pl-0 ${index % 2 === 0 ? 'md:pl-6 lg:pl-12' : 'md:pr-6 lg:pr-12'
-                                    }`}
-                            >
-                                <div
-                                    className={`glass p-4 sm:p-5 md:p-6 lg:p-7 rounded-xl hover-card transition-all duration-300 ${activeItem === edu.id ? 'neon-shadow scale-105' : ''
-                                        }`}
-                                >
-                                    <div className="flex items-start gap-3 sm:gap-4 mb-3 sm:mb-4">
-                                        {/* Institution Logo */}
-                                        <div className="flex-shrink-0">
-                                            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-lg bg-gradient-to-br from-portfolio-purple-light/20 to-portfolio-purple-light/10 border border-portfolio-purple-light/30 flex items-center justify-center overflow-hidden">
-                                                <img
-                                                    src={edu.logo}
-                                                    alt={`${edu.institution} logo`}
-                                                    className="w-8 h-8 sm:w-10 sm:h-10 object-contain filter brightness-0 invert opacity-80"
-                                                />
-                                            </div>
-                                        </div>
-
-                                        {/* Institution Info */}
-                                        <div className="flex-grow">
-                                            <div className="text-portfolio-purple-light text-xs sm:text-sm md:text-base font-medium mb-1 sm:mb-2">
-                                                {edu.date}
-                                            </div>
-                                            <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-white mb-1 sm:mb-2 leading-tight">
-                                                {edu.institution}
-                                            </h3>
-                                        </div>
-                                    </div>
-
-                                    <div className="text-sm sm:text-base md:text-lg text-gray-300 font-medium leading-relaxed">
-                                        {edu.degree}
-                                    </div>
+                            {item.logo && (
+                                <div className="w-16 h-16 border-2 border-black mb-4 overflow-hidden bg-gray-100">
+                                    <img src={item.logo} alt={item.institution} className="w-full h-full object-cover" />
                                 </div>
-                            </div>
+                            )}
+                            <h4 className="text-xl font-black uppercase mb-1">{item.institution}</h4>
+                            <p className="font-mono text-sm text-gray-700 mb-2">{item.degree}</p>
+                            <span className="font-mono text-xs bg-neo-black text-white px-2 py-1 inline-block">
+                                {item.date}
+                            </span>
                         </div>
                     ))}
                 </div>

@@ -1,219 +1,179 @@
-
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "../hooks/use-mobile";
-import logo from "./logo.png"
 
 const navItems = [
-  { id: "hero", label: "Home" },
-  { id: "educational-background", label: "Education" },
-  { id: "projects", label: "Projects" },
-  { id: "accomplishments", label: "Accomplishments" },
-  { id: "skills", label: "Skills" },
-  { id: "contact", label: "Contact" },
+  { id: "hero", label: "/HOME" },
+  { id: "about", label: "/ABOUT" },
+  { id: "skills", label: "/SKILLS" },
+  { id: "experience", label: "/LOGS" },
+  { id: "projects", label: "/WORK" },
+  { id: "contact", label: "CONTACT" },
 ];
 
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState("hero");
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const isMobile = useIsMobile();
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-      
-      const sections = navItems.map((item) => document.getElementById(item.id));
-      const scrollPosition = window.scrollY + 100;
-      
-      sections.forEach((section) => {
-        if (!section) return;
-        
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        
-        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-          setActiveSection(section.id);
-        }
-      });
-    };
-    
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+      setScrolled(window.scrollY > 50);
 
-  // Close mobile menu when clicking outside or on escape
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setIsMobileMenuOpen(false);
+      const sections = navItems.map((item) => ({
+        id: item.id,
+        element: document.getElementById(item.id),
+      }));
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
+        if (section.element) {
+          const rect = section.element.getBoundingClientRect();
+          if (rect.top <= 150) {
+            setActiveSection(section.id);
+            break;
+          }
+        }
       }
     };
 
-    if (isMobileMenuOpen) {
-      document.addEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'hidden';
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     }
-
     return () => {
-      document.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     };
-  }, [isMobileMenuOpen]);
+  }, [mobileMenuOpen]);
 
-  const scrollToSection = (sectionId: string) => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      window.scrollTo({
-        top: section.offsetTop - 80,
-        behavior: "smooth",
-      });
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileMenuOpen(false);
+    };
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, []);
+
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const offset = 80;
+      const top = element.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: "smooth" });
     }
-    setIsMobileMenuOpen(false);
+    setMobileMenuOpen(false);
   };
 
   return (
     <>
-      <header
-        className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-          isScrolled
-            ? "bg-portfolio-dark-deeper/95 backdrop-blur-lg shadow-lg"
-            : "bg-transparent"
-        )}
-      >
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 flex items-center justify-between h-16 sm:h-18 lg:h-20">
-          <a
-            href="#hero"
-            className="text-lg sm:text-xl lg:text-2xl font-bold font-poppins text-white flex items-center"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection("hero");
-            }}
-          >
-            <img src={logo} alt="Logo" className="h-10 sm:h-12 lg:h-14" />
-          </a>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:block">
-            <ul className="flex space-x-3 lg:space-x-6 xl:space-x-8">
-              {navItems.map((item) => (
-                <li key={item.id}>
-                  <a
-                    href={`#${item.id}`}
-                    className={cn(
-                      "nav-link py-2 text-sm lg:text-base transition-colors duration-300 hover:text-portfolio-purple-light",
-                      activeSection === item.id ? "active text-portfolio-purple-light" : "text-white"
-                    )}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      scrollToSection(item.id);
-                    }}
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          {/* Mobile Menu Button */}
+      <nav className="fixed top-0 w-full z-50 px-4 py-4 pointer-events-none">
+        <div className="max-w-7xl mx-auto flex justify-between items-center pointer-events-auto">
+          {/* Logo */}
           <button
-            className="md:hidden text-white p-2 touch-target"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle mobile menu"
-            aria-expanded={isMobileMenuOpen}
+            onClick={() => scrollToSection("hero")}
+            className="bg-neo-white border-2 border-black px-4 py-1 text-xl md:text-2xl font-black shadow-hard hover:bg-neo-yellow transition-all neo-hover"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="w-6 h-6 transition-transform duration-300"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d={
-                  isMobileMenuOpen
-                    ? "M6 18L18 6M6 6l12 12"
-                    : "M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5"
-                }
-              />
-            </svg>
+            ARIJIT.exe
+          </button>
+
+          {/* Desktop Nav */}
+          <div className="hidden md:flex gap-1 bg-white border-2 border-black p-2 shadow-hard">
+            {navItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className={cn(
+                  "px-3 py-1 font-mono font-bold text-sm transition-colors",
+                  item.id === "contact"
+                    ? "bg-neo-yellow border border-black hover:bg-neo-pink"
+                    : activeSection === item.id
+                      ? "bg-black text-white"
+                      : "hover:bg-black hover:text-white"
+                )}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Mobile Hamburger */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden bg-neo-white border-2 border-black p-2 shadow-hard-sm"
+            aria-label="Toggle menu"
+          >
+            <div className="w-6 h-5 flex flex-col justify-between">
+              <span className={cn("block h-0.5 bg-black transition-transform", mobileMenuOpen && "rotate-45 translate-y-2")} />
+              <span className={cn("block h-0.5 bg-black transition-opacity", mobileMenuOpen && "opacity-0")} />
+              <span className={cn("block h-0.5 bg-black transition-transform", mobileMenuOpen && "-rotate-45 -translate-y-2")} />
+            </div>
           </button>
         </div>
-      </header>
+      </nav>
 
-      {/* Mobile Menu Overlay */}
-      {isMobileMenuOpen && (
-        <div
-          className="mobile-menu-overlay md:hidden"
-          onClick={() => setIsMobileMenuOpen(false)}
-        >
-          <div 
-            className={cn(
-              "mobile-menu-content",
-              isMobileMenuOpen ? "open" : "closed"
-            )}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex flex-col h-full">
-              {/* Mobile menu header */}
-              <div className="flex items-center justify-between p-4 border-b border-white/10">
-                <span className="text-white font-semibold">Menu</span>
-                <button
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-white p-2 touch-target"
-                  aria-label="Close menu"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={2}
-                    stroke="currentColor"
-                    className="w-5 h-5"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-
-              {/* Mobile navigation links */}
-              <nav className="flex-1 px-4 py-6">
-                <ul className="space-y-2">
-                  {navItems.map((item) => (
-                    <li key={item.id}>
-                      <a
-                        href={`#${item.id}`}
-                        className={cn(
-                          "block py-3 px-4 rounded-lg text-base font-medium transition-all duration-300 touch-target",
-                          activeSection === item.id 
-                            ? "bg-portfolio-purple/20 text-portfolio-purple-light border border-portfolio-purple/30" 
-                            : "text-white hover:bg-white/5 hover:text-portfolio-purple-light"
-                        )}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          scrollToSection(item.id);
-                        }}
-                      >
-                        {item.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            </div>
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="mobile-menu-overlay" onClick={() => setMobileMenuOpen(false)} />
+      )}
+      <div
+        ref={menuRef}
+        className={cn(
+          "mobile-menu-content",
+          mobileMenuOpen ? "open" : "closed"
+        )}
+      >
+        <div className="p-6 pt-20">
+          <div className="space-y-2">
+            {navItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className={cn(
+                  "block w-full text-left px-4 py-3 font-mono font-bold text-lg border-2 border-black transition-all",
+                  activeSection === item.id
+                    ? "bg-neo-yellow text-black"
+                    : "bg-white hover:bg-neo-yellow"
+                )}
+              >
+                {item.label}
+              </button>
+            ))}
           </div>
         </div>
-      )}
+      </div>
+
+      {/* Scroll Progress Bar */}
+      <ProgressBar />
     </>
+  );
+};
+
+const ProgressBar = () => {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      setProgress((winScroll / height) * 100);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <div
+      className="fixed top-0 left-0 h-2 bg-neo-green z-[60] border-b-2 border-black"
+      style={{ width: `${progress}%` }}
+    />
   );
 };
 
