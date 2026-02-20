@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import AcademiaConnect from "./AcademiaConnect.png";
 import FloodGuard from "./FloodGuard.png";
 import AirQuality from "./AirQuality.png";
+import mlstudybuddy from "./mlstudybuddy.jpeg";
 
 interface Project {
   id: number;
@@ -16,6 +17,16 @@ interface Project {
 const projects: Project[] = [
   {
     id: 1,
+    title: "ML Study Buddy",
+    description:
+      "ML Study Buddy is a Retrieval-Augmented Generation (RAG) system designed to help students master machine learning concepts.",
+    tech: ["RAG", "Python", "LLM", "PyTorch", "HuggingFace"],
+    githubUrl: "https://github.com/aroyy007/ML_Study_Buddy",
+    image: mlstudybuddy,
+    hoverColor: "group-hover:text-neo-orange",
+  },
+  {
+    id: 2,
     title: "Air Quality Monitor",
     description:
       "Full-stack IoT + AI solution for real-time AQI tracking and prediction using Arduino sensors, Node.js, and HuggingFace ML models.",
@@ -25,7 +36,7 @@ const projects: Project[] = [
     hoverColor: "group-hover:text-neo-red",
   },
   {
-    id: 2,
+    id: 3,
     title: "AcademiaConnect",
     description:
       "A comprehensive academic collaboration platform for students and faculty to share resources, manage courses, and communicate.",
@@ -35,7 +46,7 @@ const projects: Project[] = [
     hoverColor: "group-hover:text-neo-blue",
   },
   {
-    id: 3,
+    id: 4,
     title: "FloodGuard Aid",
     description:
       "Emergency response platform for flood-affected areas with real-time mapping, resource coordination, and volunteer management.",

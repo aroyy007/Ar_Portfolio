@@ -46,7 +46,7 @@ const Skills = () => {
     <section
       id="skills"
       ref={sectionRef}
-      className="py-20 bg-neo-black text-neo-white border-y-4 border-black relative overflow-hidden"
+      className="py-12 bg-neo-black text-neo-white border-y-4 border-black relative overflow-hidden"
     >
       {/* Grid overlay */}
       <div

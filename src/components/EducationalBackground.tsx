@@ -24,7 +24,7 @@ const educationHistory: EducationItem[] = [
     {
         id: 2,
         date: "2019 - 2021",
-        institution: "Govt Haji Mohammad Mohsin College",
+        institution: "Govt Hazi Mohammad Mohsin College",
         degree: "Higher Secondary Certificate (HSC)",
         logo: college,
     },

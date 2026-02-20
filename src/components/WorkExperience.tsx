@@ -74,7 +74,7 @@ const WorkExperience = () => {
   }, []);
 
   return (
-    <section id="experience" ref={sectionRef} className="py-24 px-4 max-w-7xl mx-auto">
+    <section id="experience" ref={sectionRef} className="py-12 px-4 max-w-7xl mx-auto">
       <h2 className="section-heading mb-12 text-center">
         Experience<span className="text-neo-red">_Log</span>
       </h2>
