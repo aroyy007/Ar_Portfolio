@@ -74,7 +74,7 @@ const HeroSection = () => {
           className="reveal font-mono text-base md:text-2xl max-w-2xl mx-auto mb-10 bg-neo-yellow border-2 border-black p-4 shadow-hard rotate-1"
         >
           I build real-world, impactful tech solutions. <br />
-          <b>React • Node.js • Python • IoT & AI</b>
+          <b>React • Node.js • Python • ML & AI</b>
         </div>
 
         {/* CTAs */}

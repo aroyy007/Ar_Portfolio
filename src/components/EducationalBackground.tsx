@@ -86,13 +86,13 @@ const EducationalBackground = () => {
                     <h2 className="text-4xl md:text-6xl font-black uppercase mb-6">Who am I?</h2>
                     <p className="font-mono text-lg md:text-xl leading-relaxed mb-6">
                         I am Arijit Roy. A full-stack developer who builds{" "}
-                        <span className="bg-neo-yellow px-1 border border-black">real-world, impactful solutions</span> — from IoT systems
+                        <span className="bg-neo-yellow px-1 border border-black">real-world, impactful solutions</span> — from problems
                         to AI-powered applications.
                     </p>
                     <p className="font-mono text-base md:text-lg mb-8 text-gray-600 border-l-4 border-neo-purple pl-4">
                         &gt; BSc in Computer Science & Engineering @ East Delta University<br />
-                        &gt; ICPC Regionalist 2024 | IoT & AI Enthusiast<br />
-                        &gt; Full Stack: React, Node.js, Python, MongoDB
+                        &gt; ICPC Regionalist 2024 | ML & AI Enthusiast<br />
+                        &gt; Full Stack: React, Node.js, Python, MongoDB, SupaBase
                     </p>
 
                     <div className="flex flex-wrap gap-3">
