@@ -114,10 +114,11 @@ const EducationalBackground = () => {
                 </h3>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {educationHistory.map((item) => (
+                    {educationHistory.map((item, index) => (
                         <div
                             key={item.id}
-                            className="reveal bg-white border-4 border-black p-5 shadow-hard hover:shadow-hard-lg hover:-translate-y-1 transition-all duration-300"
+                            className="reveal bg-white border-4 border-black p-5 shadow-hard hover:shadow-hard-lg hover:-translate-y-1 transition-all duration-300 ag-float"
+                            style={{ '--float-delay': `${index * 0.7}s` } as React.CSSProperties}
                         >
                             {item.logo && (
                                 <div className="w-16 h-16 border-2 border-black mb-4 overflow-hidden bg-gray-100">

@@ -9,6 +9,7 @@ import Accomplishments from "../components/Accomplishments";
 import Projects from "../components/Projects";
 import Contact from "../components/Contact";
 import Footer from "../components/Footer";
+import AntigravityProvider from "../components/AntigravityProvider";
 
 const Index = () => {
   useEffect(() => {
@@ -38,18 +39,20 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen">
-      <Navbar />
-      <HeroSection />
-      <MarqueeBanner />
-      <EducationalBackground />
-      <Skills />
-      {/* <WorkExperience /> */}
-      <Accomplishments />
-      <Projects />
-      <Contact />
-      <Footer />
-    </div>
+    <AntigravityProvider>
+      <div className="min-h-screen">
+        <Navbar />
+        <HeroSection />
+        <MarqueeBanner />
+        <EducationalBackground />
+        <Skills />
+        {/* <WorkExperience /> */}
+        <Accomplishments />
+        <Projects />
+        <Contact />
+        <Footer />
+      </div>
+    </AntigravityProvider>
   );
 };
 

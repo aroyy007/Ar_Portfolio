@@ -12,10 +12,56 @@ const contactSchema = z.object({
 
 type ContactFormData = z.infer<typeof contactSchema>;
 
+// Typewriter hook — types character by character
+function useTypewriter(
+  texts: string[],
+  speed: number = 30,
+  startDelay: number = 300,
+  shouldStart: boolean = false
+) {
+  const [lines, setLines] = useState<string[]>([]);
+  const [currentLine, setCurrentLine] = useState("");
+  const [isComplete, setIsComplete] = useState(false);
+  const hasStarted = useRef(false);
+
+  useEffect(() => {
+    if (!shouldStart || hasStarted.current) return;
+    hasStarted.current = true;
+
+    let lineIdx = 0;
+    let charIdx = 0;
+
+    const startTimeout = setTimeout(() => {
+      const interval = setInterval(() => {
+        if (lineIdx >= texts.length) {
+          clearInterval(interval);
+          setIsComplete(true);
+          return;
+        }
+
+        const text = texts[lineIdx];
+        if (charIdx < text.length) {
+          charIdx++;
+          setCurrentLine(text.substring(0, charIdx));
+        } else {
+          setLines((prev) => [...prev, text]);
+          setCurrentLine("");
+          lineIdx++;
+          charIdx = 0;
+        }
+      }, speed);
+
+      return () => clearInterval(interval);
+    }, startDelay);
+
+    return () => clearTimeout(startTimeout);
+  }, [shouldStart, texts, speed, startDelay]);
+
+  return { lines, currentLine, isComplete };
+}
+
 const Contact = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  const terminalRef = useRef<HTMLDivElement>(null);
-  const [terminalLines, setTerminalLines] = useState<string[]>([]);
   const [isVisible, setIsVisible] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -32,9 +78,17 @@ const Contact = () => {
 
   const bootMessages = [
     "> Initializing contact module...",
-    "> Connection established.",
+    "> Establishing secure connection...",
+    "> Encryption: AES-256 active",
     "> Ready for transmission_",
   ];
+
+  const { lines: terminalLines, currentLine } = useTypewriter(
+    bootMessages,
+    30,
+    300,
+    isVisible
+  );
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -54,22 +108,6 @@ const Contact = () => {
 
     return () => observer.disconnect();
   }, []);
-
-  useEffect(() => {
-    if (!isVisible) return;
-
-    let i = 0;
-    const interval = setInterval(() => {
-      if (i < bootMessages.length) {
-        setTerminalLines((prev) => [...prev, bootMessages[i]]);
-        i++;
-      } else {
-        clearInterval(interval);
-      }
-    }, 500);
-
-    return () => clearInterval(interval);
-  }, [isVisible]);
 
   const onSubmit = (data: ContactFormData) => {
     setIsSubmitting(true);
@@ -146,7 +184,7 @@ const Contact = () => {
           {/* Right Side: Terminal Form */}
           <div className="bg-neo-black border-4 border-black shadow-hard overflow-hidden">
             {/* Terminal Header */}
-            <div className="flex items-center gap-2 px-4 py-2 border-b-2 border-white/20 bg-neo-black">
+            <div className="flex items-center gap-2 px-4 py-2 border-b-2 border-neo-yellow/30 bg-neo-black">
               <div className="flex gap-2">
                 <div className="h-3 w-3 bg-red-500 rounded-full border border-black" />
                 <div className="h-3 w-3 bg-yellow-500 rounded-full border border-black" />
@@ -157,11 +195,17 @@ const Contact = () => {
 
             {/* Terminal Body */}
             <div className="p-4 md:p-6">
-              {/* Boot Messages */}
+              {/* Typewriter Boot Messages */}
               <div className="mb-4 font-mono text-xs text-neo-green space-y-1">
                 {terminalLines.map((line, i) => (
-                  <p key={i} className="animate-fade-in">{line}</p>
+                  <p key={i}>{line}</p>
                 ))}
+                {currentLine && (
+                  <p>
+                    {currentLine}
+                    <span className="typewriter-cursor" />
+                  </p>
+                )}
               </div>
 
               {submitted ? (
@@ -177,41 +221,41 @@ const Contact = () => {
               ) : (
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                   <div>
-                    <label className="font-mono font-bold mb-1 uppercase text-xs text-neo-green block">
+                    <label className="font-mono font-bold mb-1 uppercase text-xs text-neo-yellow block">
                       &gt; Identity
                     </label>
                     <input
                       {...register("name")}
                       placeholder="NAME / COMPANY"
-                      className="w-full bg-white/5 border-2 border-white/20 p-3 font-mono font-bold text-white text-sm focus:outline-none focus:border-neo-green focus:bg-white/10 transition-all placeholder:text-white/30"
+                      className="w-full bg-white/5 border-2 border-neo-yellow/30 p-3 font-mono font-bold text-white text-sm focus:outline-none focus:border-neo-yellow focus:bg-white/10 transition-all placeholder:text-white/30"
                     />
                     {errors.name && (
                       <p className="text-neo-red font-mono text-xs mt-1">{errors.name.message}</p>
                     )}
                   </div>
                   <div>
-                    <label className="font-mono font-bold mb-1 uppercase text-xs text-neo-green block">
+                    <label className="font-mono font-bold mb-1 uppercase text-xs text-neo-yellow block">
                       &gt; Coordinates
                     </label>
                     <input
                       {...register("email")}
                       type="email"
                       placeholder="EMAIL ADDRESS"
-                      className="w-full bg-white/5 border-2 border-white/20 p-3 font-mono font-bold text-white text-sm focus:outline-none focus:border-neo-green focus:bg-white/10 transition-all placeholder:text-white/30"
+                      className="w-full bg-white/5 border-2 border-neo-yellow/30 p-3 font-mono font-bold text-white text-sm focus:outline-none focus:border-neo-yellow focus:bg-white/10 transition-all placeholder:text-white/30"
                     />
                     {errors.email && (
                       <p className="text-neo-red font-mono text-xs mt-1">{errors.email.message}</p>
                     )}
                   </div>
                   <div>
-                    <label className="font-mono font-bold mb-1 uppercase text-xs text-neo-green block">
+                    <label className="font-mono font-bold mb-1 uppercase text-xs text-neo-yellow block">
                       &gt; Transmission
                     </label>
                     <textarea
                       {...register("message")}
                       rows={4}
                       placeholder="PROJECT DETAILS..."
-                      className="w-full bg-white/5 border-2 border-white/20 p-3 font-mono font-bold text-white text-sm focus:outline-none focus:border-neo-green focus:bg-white/10 transition-all resize-none placeholder:text-white/30"
+                      className="w-full bg-white/5 border-2 border-neo-yellow/30 p-3 font-mono font-bold text-white text-sm focus:outline-none focus:border-neo-yellow focus:bg-white/10 transition-all resize-none placeholder:text-white/30"
                     />
                     {errors.message && (
                       <p className="text-neo-red font-mono text-xs mt-1">{errors.message.message}</p>
@@ -220,7 +264,8 @@ const Contact = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-neo-green text-black font-black text-lg py-3 border-2 border-black shadow-hard neo-hover transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    data-magnetic
+                    className="w-full bg-neo-yellow text-black font-black text-lg py-3 border-2 border-black shadow-hard neo-hover transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? "TRANSMITTING..." : "TRANSMIT DATA"}
                   </button>

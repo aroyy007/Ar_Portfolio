@@ -72,10 +72,11 @@ const Skills = () => {
 
         {/* Skills Grid */}
         <div className="reveal flex flex-wrap justify-center md:justify-start">
-          {skills.map((skill) => (
+          {skills.map((skill, i) => (
             <div
               key={skill.name}
-              className={`group w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 xl:w-[12.5%] h-24 border-r-2 border-b-2 border-white/20 bg-neo-black ${skill.hoverColor} transition-all duration-0 hover:z-10 relative flex flex-col items-center justify-center p-2`}
+              className={`group w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 xl:w-[12.5%] h-24 border-r-2 border-b-2 border-white/20 bg-neo-black ${skill.hoverColor} transition-all duration-0 hover:z-10 relative flex flex-col items-center justify-center p-2 ag-float`}
+              style={{ '--float-delay': `${i * 0.3}s`, '--float-duration': `${3 + Math.random() * 2}s` } as React.CSSProperties}
             >
               <div className="text-neo-green group-hover:text-black font-mono text-xs mb-1 opacity-50">
                 &gt;_ {skill.category}
