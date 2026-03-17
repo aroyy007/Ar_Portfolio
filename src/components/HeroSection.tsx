@@ -24,17 +24,16 @@ const HeroSection = () => {
   useEffect(() => {
     const t1 = setTimeout(() => setLoadPhase(1), 0);
     const t2 = setTimeout(() => setLoadPhase(2), 300);
-    const t3 = setTimeout(() => {
-      setAssembled(true);
-      setLoadPhase(3);
-    }, 600);
-    const t4 = setTimeout(() => setLoadPhase(4), 1000);
+    const t3 = setTimeout(() => setAssembled(true), 600);
+    const t4 = setTimeout(() => setLoadPhase(3), 1500);
+    const t5 = setTimeout(() => setLoadPhase(4), 2400);
 
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
       clearTimeout(t3);
       clearTimeout(t4);
+      clearTimeout(t5);
     };
   }, []);
 
@@ -50,7 +49,7 @@ const HeroSection = () => {
             {
               "--char-x": `${offset.x}px`,
               "--char-y": `${offset.y}px`,
-              transitionDelay: `${globalIndex * 40}ms`,
+              transitionDelay: `${globalIndex * 80}ms`,
             } as React.CSSProperties
           }
           ref={(el) => {
@@ -138,11 +137,11 @@ const HeroSection = () => {
 
         {/* Subtitle */}
         <div
-          className={`font-mono text-base md:text-2xl max-w-3xl mx-auto mb-10 bg-neo-yellow border-2 border-black p-4 shadow-hard rotate-1 transition-all duration-700 ${
+          className={`font-mono text-base md:text-2xl max-w-4xl mx-auto mb-10 bg-neo-yellow border-2 border-black p-4 shadow-hard rotate-1 transition-all duration-700 ${
             loadPhase >= 3 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >
-          I build real-world, impactful tech solutions. <br />
+          I build real-world, impactful tech solutions with AI. <br />
           <b>React • Node.js • Python • ML & AI</b>
         </div>
 
