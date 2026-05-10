@@ -82,7 +82,7 @@ const Navbar = () => {
             data-magnetic
             className="bg-neo-white border-2 border-black px-4 py-1 text-xl md:text-2xl font-black shadow-hard hover:bg-neo-yellow transition-all neo-hover"
           >
-            ARIJIT
+            ARIJITROY.me
           </button>
 
           {/* Desktop Nav */}
