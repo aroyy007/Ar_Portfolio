@@ -1,159 +1,90 @@
+import { Activity, ArrowUpRight, Database, FileText, Github, Radio } from "lucide-react";
+import paperPdf from "../assets/FedAdaptEF_Morocco_Conference.pdf";
 
-import { useRef, useEffect } from "react";
-
-interface PublicationItem {
-  id: number;
-  title: string;
-  description: string;
-  status: string;
-  type: "publication" | "problem";
-}
-
-const items: PublicationItem[] = [
-  {
-    id: 1,
-    title: "IoT-Based Smart Air Quality Monitoring System",
-    description: "Research on efficient real-time air quality monitoring using low-cost sensors and machine learning.",
-    status: "Upcoming",
-    type: "publication"
-  },
-  {
-    id: 2,
-    title: "Optimizing Emergency Response with AI",
-    description: "Analysis of AI techniques for improving disaster relief communication.",
-    status: "In Progress",
-    type: "publication"
-  },
-  {
-    id: 3,
-    title: "Advanced Data Structures",
-    description: "Creating competitive programming problems focusing on advanced data structures.",
-    status: "Coming Soon",
-    type: "problem"
-  },
-  {
-    id: 4,
-    title: "Graph Theory Challenge",
-    description: "Series of algorithmic problems based on graph theory and network optimization.",
-    status: "In Development",
-    type: "problem"
-  }
+const metrics = [
+  { value: "0.9601", label: "ROC–AUC", icon: Activity },
+  { value: "−23.9%", label: "Communication", icon: Radio },
+  { value: "16,652", label: "Fundus images", icon: Database },
+  { value: "06", label: "Evaluation seeds", icon: FileText },
 ];
 
-const Publications = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const publicationsRef = useRef<HTMLDivElement>(null);
-  const problemsRef = useRef<HTMLDivElement>(null);
-  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate-slide-up", "opacity-100");
-            entry.target.classList.remove("opacity-0", "translate-y-8");
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    if (publicationsRef.current) {
-      observer.observe(publicationsRef.current);
-    }
-
-    if (problemsRef.current) {
-      observer.observe(problemsRef.current);
-    }
-
-    itemRefs.current.forEach((item) => {
-      if (item) {
-        observer.observe(item);
-      }
-    });
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-      if (publicationsRef.current) {
-        observer.unobserve(publicationsRef.current);
-      }
-      if (problemsRef.current) {
-        observer.unobserve(problemsRef.current);
-      }
-      itemRefs.current.forEach((item) => {
-        if (item) {
-          observer.unobserve(item);
-        }
-      });
-    };
-  }, []);
-
-  const publications = items.filter(item => item.type === "publication");
-  const problems = items.filter(item => item.type === "problem");
-
-  return (
-    <section id="publications" className="section-container">
-      <div ref={sectionRef} className="opacity-0 translate-y-8 transition-all duration-700">
-        <h2 className="section-heading">Research &amp; Judging</h2>
-      </div>
-
-      {/* Publications */}
-      <div 
-        ref={publicationsRef}
-        className="mb-12 opacity-0 translate-y-8 transition-all duration-700"
-      >
-        <h3 className="section-subheading">Upcoming Publications</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {publications.map((item, index) => (
-            <div
-              key={item.id}
-              ref={(el) => (itemRefs.current[index] = el)}
-              className="glass rounded-lg p-6 hover-card opacity-0 translate-y-8 transition-all duration-700"
-              style={{ transitionDelay: `${index * 150}ms` }}
-            >
-              <div className="inline-block bg-portfolio-purple/20 text-portfolio-purple-light text-xs px-3 py-1 rounded-full mb-3">
-                {item.status}
-              </div>
-              <h3 className="text-xl font-semibold text-white mb-2">{item.title}</h3>
-              <p className="text-gray-400">{item.description}</p>
-            </div>
-          ))}
+const Publications = () => (
+  <section id="publications" className="publication-section">
+    <div className="section-container">
+      <div className="publication-heading-row reveal">
+        <div>
+          <span className="publication-kicker">RESEARCH ARCHIVE / 001</span>
+          <h2 className="section-heading publication-heading">Selected<br />research</h2>
         </div>
+        <p className="publication-intro">
+          Building communication-efficient machine learning systems for practical,
+          privacy-aware healthcare.
+        </p>
       </div>
 
-      {/* Problem Setting */}
-      <div 
-        ref={problemsRef}
-        className="opacity-0 translate-y-8 transition-all duration-700"
-        style={{ transitionDelay: "200ms" }}
-      >
-        <h3 className="section-subheading">Problem Setting</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {problems.map((item, index) => (
-            <div
-              key={item.id}
-              ref={(el) => (itemRefs.current[publications.length + index] = el)}
-              className="glass rounded-lg p-6 hover-card opacity-0 translate-y-8 transition-all duration-700"
-              style={{ transitionDelay: `${(publications.length + index) * 150}ms` }}
-            >
-              <div className="inline-block bg-portfolio-blue/20 text-portfolio-blue text-xs px-3 py-1 rounded-full mb-3">
-                {item.status}
-              </div>
-              <h3 className="text-xl font-semibold text-white mb-2">{item.title}</h3>
-              <p className="text-gray-400">{item.description}</p>
-            </div>
-          ))}
+      <article className="publication-dossier reveal">
+        <div className="publication-index" aria-hidden="true">
+          <span>IEEE</span><strong>01</strong><span>2026</span>
         </div>
-      </div>
-    </section>
-  );
-};
+
+        <div className="publication-main">
+          <div className="publication-status-row">
+            <span className="publication-status"><i /> PUBLISHED</span>
+            <span>FEDERATED LEARNING · MEDICAL AI</span>
+          </div>
+          <h3>
+            FedAdapt-EF: An Efficient Federated Learning-Based Approach on
+            Adaptive Compression with Error Feedback for Diabetic Retinopathy
+          </h3>
+          <p className="publication-authors">
+            <strong>Arijit Roy</strong> · Ittekhar Mahin Abir · Antu Chowdhury
+          </p>
+          <p className="publication-summary">
+            A layer-wise adaptive compression method that combines error feedback
+            and FedProx to reduce federated-learning communication while preserving
+            diabetic retinopathy classification performance.
+          </p>
+          <div className="publication-tags" aria-label="Research topics">
+            <span>FEDERATED LEARNING</span><span>ERROR FEEDBACK</span>
+            <span>DIABETIC RETINOPATHY</span><span>FEDPROX</span>
+          </div>
+          <div className="publication-actions">
+            <a href="https://ieeexplore.ieee.org/document/11650558" target="_blank" rel="noreferrer" className="publication-button publication-button-primary">
+              IEEE XPLORE <ArrowUpRight size={18} aria-hidden="true" />
+            </a>
+            <a href={paperPdf} target="_blank" rel="noreferrer" className="publication-button">
+              READ PAPER <FileText size={17} aria-hidden="true" />
+            </a>
+            <a href="https://www.researchgate.net/profile/Arijit-Roy-27/research" target="_blank" rel="noreferrer" className="publication-button">
+              RESEARCHGATE <ArrowUpRight size={17} aria-hidden="true" />
+            </a>
+            <a href="https://github.com/aroyy007/FedAdapt-EF" target="_blank" rel="noreferrer" className="publication-button publication-button-icon" aria-label="View FedAdapt-EF source code on GitHub">
+              <Github size={19} aria-hidden="true" />
+            </a>
+          </div>
+        </div>
+
+        <aside className="publication-metrics" aria-label="Paper results">
+          <div className="publication-scan" aria-hidden="true" />
+          <div className="publication-metrics-label"><span>EXPERIMENT LOG</span><span>VERIFIED</span></div>
+          <div className="publication-metric-grid">
+            {metrics.map(({ value, label, icon: Icon }) => (
+              <div className="publication-metric" key={label}>
+                <Icon size={18} strokeWidth={2.4} aria-hidden="true" />
+                <strong>{value}</strong><span>{label}</span>
+              </div>
+            ))}
+          </div>
+          <div className="publication-signal" aria-hidden="true">
+            {Array.from({ length: 28 }, (_, index) => (
+              <i key={index} style={{ height: `${18 + ((index * 17) % 48)}%` }} />
+            ))}
+          </div>
+          <p>Adaptive compression / stable convergence / six-seed evaluation</p>
+        </aside>
+      </article>
+    </div>
+  </section>
+);
 
 export default Publications;
