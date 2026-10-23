@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useMemo } from "react";
 import { useIsMobile } from "../hooks/use-mobile";
-import cv from "./ArijitRoyCV.pdf";
+import cv from "./Arijit___Roy.pdf";
 
 const HeroSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
