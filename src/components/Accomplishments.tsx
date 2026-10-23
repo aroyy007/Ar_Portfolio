@@ -127,7 +127,7 @@ const Accomplishments = () => {
               <h3 className="text-2xl font-black uppercase text-white">GITHUB</h3>
             </div>
 
-            <div className="border-4 border-white/20 p-6 bg-black flex-1 flex flex-col shadow-[8px_8px_0_rgba(0,0,0,1)] relative">
+            <div className="border-4 border-white/20 p-4 sm:p-6 bg-black flex-1 flex flex-col shadow-[8px_8px_0_rgba(0,0,0,1)] relative">
               {/* Profile Header */}
               <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/10">
                 <div className="flex items-center gap-3">
@@ -195,6 +195,8 @@ const Accomplishments = () => {
                   <img
                     src={`https://ghchart.rshah.org/33FF57/${GITHUB_USERNAME}`}
                     alt="GitHub Contribution Graph"
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-auto filter brightness-110"
                     style={{ imageRendering: "auto" }}
                   />
@@ -229,7 +231,7 @@ const Accomplishments = () => {
               <h3 className="text-2xl font-black uppercase text-white">PLATFORMS</h3>
             </div>
 
-            <div className="border-4 border-white/20 p-6 bg-black flex-1 flex flex-col shadow-[8px_8px_0_rgba(0,0,0,1)]">
+            <div className="border-4 border-white/20 p-4 sm:p-6 bg-black flex-1 flex flex-col shadow-[8px_8px_0_rgba(0,0,0,1)]">
               {/* Achievements */}
               <div className="space-y-4 mb-8">
                 {[
@@ -284,6 +286,8 @@ const Accomplishments = () => {
                       <img
                         src={platform.icon}
                         alt={platform.name}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-contain"
                       />
                     </div>

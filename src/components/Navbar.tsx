@@ -74,13 +74,13 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed top-0 w-full z-50 px-4 py-4 pointer-events-none">
+      <nav className="fixed top-0 w-full z-50 px-3 md:px-4 py-3 pointer-events-none">
         <div className="max-w-7xl mx-auto flex justify-between items-center pointer-events-auto">
           {/* Logo */}
           <button
             onClick={() => scrollToSection("hero")}
             data-magnetic
-            className="bg-neo-white border-2 border-black px-4 py-1 text-xl md:text-2xl font-black shadow-hard hover:bg-neo-yellow transition-all neo-hover"
+            className="bg-neo-white border-2 border-black px-3 py-1 text-lg md:text-xl font-black shadow-hard hover:bg-neo-yellow transition-all neo-hover"
           >
             ARIJITROY.me
           </button>

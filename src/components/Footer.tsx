@@ -1,9 +1,10 @@
 import deskScene from "../assets/arijit-desk.png";
 
 const sitemap = [
-  { label: "Home", href: "#hero" },
+  { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Skills", href: "#skills" },
+  { label: "Research", href: "#publications" },
   { label: "Work", href: "#projects" },
 ];
 
@@ -20,7 +21,7 @@ const Footer = () => {
       <div className="footer-glow" aria-hidden="true" />
 
       <div className="footer-character" aria-hidden="true">
-        <img src={deskScene} alt="" />
+        <img src={deskScene} alt="" loading="lazy" decoding="async" />
         <span className="footer-eye footer-eye-left" />
         <span className="footer-eye footer-eye-right" />
       </div>
@@ -34,7 +35,7 @@ const Footer = () => {
       </div>
 
       <div className="footer-bottom">
-        <a href="#hero" className="footer-mark" aria-label="Back to the top">AR.</a>
+        <a href="#home" className="footer-mark" aria-label="Back to the top">AR.</a>
         <nav aria-label="Footer navigation">
           {sitemap.map((link) => <a key={link.label} href={link.href}>{link.label}</a>)}
         </nav>

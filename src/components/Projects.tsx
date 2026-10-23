@@ -152,6 +152,8 @@ const Projects = () => {
                     <img
                       src={featuredProject.image}
                       alt={featuredProject.title}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
                     />
                     <span className="absolute top-3 left-3 bg-neo-green text-black px-3 py-1 font-mono text-xs font-bold border-2 border-black shadow-hard-sm">
@@ -209,12 +211,14 @@ const Projects = () => {
                     <img
                       src={project.image}
                       alt={project.title}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
                     />
                   </div>
 
                   {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-neo-black/90 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-center items-center p-6 text-center z-10">
+                  <div className="absolute inset-0 bg-neo-black/90 opacity-0 group-hover:opacity-100 transition-all duration-500 hidden md:flex flex-col justify-center items-center p-6 text-center z-10">
                     <h3 className="text-2xl font-black uppercase mb-3 text-neo-yellow">
                       {project.title}
                     </h3>
@@ -256,6 +260,14 @@ const Projects = () => {
                         </span>
                       ))}
                     </div>
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="md:hidden mt-5 min-h-11 inline-flex items-center justify-center bg-neo-green border-2 border-black px-4 py-2 font-bold shadow-hard-sm"
+                    >
+                      View project <span aria-hidden="true">↗</span>
+                    </a>
                   </div>
                 </article>
               </TiltCard>

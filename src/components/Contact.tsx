@@ -141,18 +141,18 @@ const Contact = () => {
               I am currently available for freelance work and open to full-time opportunities.
             </p>
             <div className="space-y-4">
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3 sm:gap-4 min-w-0">
                 <div className="w-12 h-12 bg-neo-black text-white flex items-center justify-center border-2 border-black flex-shrink-0">
                   <i className="ri-mail-line text-xl"></i>
                 </div>
                 <a
                   href="mailto:contact@arijitroy.me"
-                  className="text-base md:text-xl font-bold hover:bg-neo-blue hover:text-white transition-colors px-1"
+                  className="min-w-0 break-all text-sm sm:text-base md:text-xl font-bold hover:bg-neo-blue hover:text-white transition-colors px-1"
                 >
                   contact@arijitroy.me
                 </a>
               </div>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3 sm:gap-4 min-w-0">
                 <div className="w-12 h-12 bg-neo-black text-white flex items-center justify-center border-2 border-black flex-shrink-0">
                   <i className="ri-github-line text-xl"></i>
                 </div>
@@ -160,12 +160,12 @@ const Contact = () => {
                   href="https://github.com/aroyy007"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-base md:text-xl font-bold hover:bg-neo-yellow transition-colors px-1"
+                  className="min-w-0 break-all text-sm sm:text-base md:text-xl font-bold hover:bg-neo-yellow transition-colors px-1"
                 >
                   github.com/aroyy007
                 </a>
               </div>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3 sm:gap-4 min-w-0">
                 <div className="w-12 h-12 bg-neo-black text-white flex items-center justify-center border-2 border-black flex-shrink-0">
                   <i className="ri-linkedin-line text-xl"></i>
                 </div>
@@ -173,7 +173,7 @@ const Contact = () => {
                   href="https://www.linkedin.com/in/arijit-roy-3004ar/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-base md:text-xl font-bold hover:bg-neo-purple hover:text-white transition-colors px-1"
+                  className="min-w-0 break-all text-sm sm:text-base md:text-xl font-bold hover:bg-neo-purple hover:text-white transition-colors px-1"
                 >
                   linkedin.com/in/arijit-roy
                 </a>

@@ -73,6 +73,8 @@ const EducationalBackground = () => {
                         <img
                             src={bgimage}
                             alt="Arijit Roy"
+                            loading="lazy"
+                            decoding="async"
                             className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
                         />
                         <span className="absolute top-2 left-2 bg-neo-red text-white px-2 font-mono text-xs border border-black z-10">
@@ -122,7 +124,7 @@ const EducationalBackground = () => {
                         >
                             {item.logo && (
                                 <div className="w-16 h-16 border-2 border-black mb-4 overflow-hidden bg-gray-100">
-                                    <img src={item.logo} alt={item.institution} className="w-full h-full object-cover" />
+                                    <img src={item.logo} alt={item.institution} loading="lazy" decoding="async" className="w-full h-full object-cover" />
                                 </div>
                             )}
                             <h4 className="text-xl font-black uppercase mb-1">{item.institution}</h4>
