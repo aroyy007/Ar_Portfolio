@@ -8,6 +8,7 @@ interface Project {
   id: number;
   title: string;
   description: string;
+  highlights: string[];
   tech: string[];
   githubUrl: string;
   image: string;
@@ -21,6 +22,7 @@ const projects: Project[] = [
     title: "ML Study Buddy",
     description:
       "ML Study Buddy is a Retrieval-Augmented Generation (RAG) system designed to help students master machine learning concepts.",
+    highlights: ["Retrieval-augmented generation", "Machine learning study support", "LLM-powered learning"],
     tech: ["RAG", "Python", "LLM", "PyTorch", "HuggingFace"],
     githubUrl: "https://github.com/aroyy007/ML_Study_Buddy",
     image: mlstudybuddy,
@@ -32,6 +34,7 @@ const projects: Project[] = [
     title: "Air Quality Monitor",
     description:
       "Full-stack IoT + AI solution for real-time AQI tracking and prediction using Arduino sensors, Node.js, and HuggingFace ML models.",
+    highlights: ["Sensor-based AQI tracking", "Real-time readings", "Air-quality prediction"],
     tech: ["Arduino", "Node.js", "React", "MongoDB", "HuggingFace"],
     githubUrl: "https://github.com/aroyy007/Air_Quality_Monitoring",
     image: AirQuality,
@@ -42,6 +45,7 @@ const projects: Project[] = [
     title: "AcademiaConnect",
     description:
       "A comprehensive academic collaboration platform for students and faculty to share resources, manage courses, and communicate.",
+    highlights: ["Resource sharing", "Course management", "Student and faculty communication"],
     tech: ["React", "Node.js", "Express", "MongoDB"],
     githubUrl: "https://github.com/aroyy007/AcademiaConnect",
     image: AcademiaConnect,
@@ -52,6 +56,7 @@ const projects: Project[] = [
     title: "FloodGuard Aid",
     description:
       "Emergency response platform for flood-affected areas with real-time mapping, resource coordination, and volunteer management.",
+    highlights: ["Real-time flood mapping", "Resource coordination", "Volunteer management"],
     tech: ["React", "Firebase", "Google Maps API", "Tailwind"],
     githubUrl: "https://github.com/aroyy007/FloodGuard_Aid_Network",
     image: FloodGuard,
@@ -171,6 +176,19 @@ const Projects = () => {
                     <p className="font-mono text-sm mb-6 leading-relaxed">
                       {featuredProject.description}
                     </p>
+                    <div className="mb-6 border-l-4 border-neo-yellow pl-4">
+                      <h4 className="font-mono text-[10px] font-black tracking-widest mb-2">
+                        KEY FEATURES
+                      </h4>
+                      <ul className="space-y-1.5">
+                        {featuredProject.highlights.map((highlight) => (
+                          <li key={highlight} className="flex items-start gap-2 font-mono text-xs leading-relaxed">
+                            <span className="bg-neo-yellow border border-black px-1 font-black leading-4" aria-hidden="true">+</span>
+                            <span>{highlight}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                     <div className="flex gap-2 font-mono text-xs font-bold flex-wrap mb-8">
                       {featuredProject.tech.map((t) => (
                         <span key={t} className="neo-tag">
@@ -194,7 +212,7 @@ const Projects = () => {
           </div>
         )}
 
-        {/* Other Projects Grid — with 3D tilt + hover overlay */}
+        {/* Other Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {otherProjects.map((project, index) => (
             <div
@@ -217,43 +235,36 @@ const Projects = () => {
                     />
                   </div>
 
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-neo-black/90 opacity-0 group-hover:opacity-100 transition-all duration-500 hidden md:flex flex-col justify-center items-center p-6 text-center z-10">
-                    <h3 className="text-2xl font-black uppercase mb-3 text-neo-yellow">
-                      {project.title}
-                    </h3>
-                    <p className="font-mono text-xs text-white/60 mb-4 max-w-xs">
-                      {project.description}
-                    </p>
-                    <div className="flex gap-2 font-mono text-xs font-bold flex-wrap justify-center mb-6">
-                      {project.tech.map((t) => (
-                        <span
-                          key={t}
-                          className="bg-neo-yellow text-black px-2 py-1"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      data-magnetic
-                      className="bg-neo-green text-black border-2 border-black px-6 py-2 font-bold shadow-hard-sm neo-hover"
-                    >
-                      View →
-                    </a>
-                  </div>
-
-                  {/* Content (visible when not hovered) */}
+                  {/* Project details stay visible on touch and desktop */}
                   <div className="p-5 flex-1 flex flex-col">
+                    <p className="font-mono text-[10px] font-bold tracking-widest text-gray-500 mb-2">
+                      PROJECT / {String(project.id).padStart(2, "0")}
+                    </p>
                     <h3
                       className={`text-xl md:text-2xl font-black uppercase mb-2 transition-colors glitch-hover ${project.hoverColor}`}
                     >
                       {project.title}
                     </h3>
-                    <div className="flex gap-2 font-mono text-xs font-bold flex-wrap mt-auto pt-3">
+
+                    <p className="font-mono text-xs leading-relaxed text-gray-700">
+                      {project.description}
+                    </p>
+
+                    <div className="mt-4 border-t-2 border-black/10 pt-3">
+                      <h4 className="font-mono text-[10px] font-black tracking-widest mb-2">
+                        KEY FEATURES
+                      </h4>
+                      <ul className="space-y-1.5">
+                        {project.highlights.map((highlight) => (
+                          <li key={highlight} className="flex items-start gap-2 font-mono text-xs leading-relaxed">
+                            <span className="bg-neo-yellow border border-black px-1 font-black leading-4" aria-hidden="true">+</span>
+                            <span>{highlight}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="flex gap-2 font-mono text-xs font-bold flex-wrap mt-auto pt-4">
                       {project.tech.slice(0, 3).map((t) => (
                         <span key={t} className="neo-tag">
                           {t}
@@ -264,9 +275,10 @@ const Projects = () => {
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="md:hidden mt-5 min-h-11 inline-flex items-center justify-center bg-neo-green border-2 border-black px-4 py-2 font-bold shadow-hard-sm"
+                      data-magnetic
+                      className="mt-5 min-h-11 inline-flex items-center justify-center gap-2 bg-neo-green border-2 border-black px-4 py-2 font-bold shadow-hard-sm neo-hover"
                     >
-                      View project <span aria-hidden="true">↗</span>
+                      View repository <span aria-hidden="true">↗</span>
                     </a>
                   </div>
                 </article>
