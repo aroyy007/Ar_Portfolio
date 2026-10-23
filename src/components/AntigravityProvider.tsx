@@ -24,8 +24,28 @@ const AntigravityProvider = ({ children }: { children: ReactNode }) => {
   const unregisterMagnetic = useCallback((el: HTMLElement) => { magneticEls.current.delete(el); }, []);
 
   useEffect(() => {
+    // Scroll reveals work on touch devices too; only cursor effects need a pointer.
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+            // Stagger children
+            const children = entry.target.querySelectorAll(".reveal-child");
+            children.forEach((child, i) => {
+              (child as HTMLElement).style.transitionDelay = `${i * 60}ms`;
+              child.classList.add("active");
+            });
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: "0px 0px -50px 0px" }
+    );
+
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+
     const isTouch = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
-    if (isTouch) return;
+    if (isTouch) return () => observer.disconnect();
 
     const dot = dotRef.current;
     const ring = ringRef.current;
@@ -77,27 +97,6 @@ const AntigravityProvider = ({ children }: { children: ReactNode }) => {
     };
 
 
-
-    // Scroll reveal with child stagger
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("active");
-            // Stagger children
-            const children = entry.target.querySelectorAll(".reveal-child");
-            children.forEach((child, i) => {
-              (child as HTMLElement).style.transitionDelay = `${i * 60}ms`;
-              child.classList.add("active");
-            });
-          }
-        });
-      },
-      { threshold: 0.08, rootMargin: "0px 0px -50px 0px" }
-    );
-
-    // Observe all .reveal elements
-    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 
     // Mouse parallax
     const parallaxEls = document.querySelectorAll("[data-parallax]");
